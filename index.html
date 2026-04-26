@@ -1,0 +1,4041 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الحمداوي رشيد</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Tajawal:wght@300;400;500;700;900&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="Style.css">
+</head>
+
+<body>
+  <!-- ══ SPLASH SCREEN ══ -->
+  <div id="splash">
+    <div class="splash-logo">
+      <img src="images/logoc.png" alt="شعار" onerror="this.parentElement.innerHTML='🎓'">
+    </div>
+    <div class="splash-title">الملف التراكمي<br>سلك تكوين أطر الإدارة التربوية</div>
+    <div class="splash-sub">المركز الجهوي لمهن التربية والتكوين لجهة فاس مكناس</div>
+    <div class="splash-bar">
+      <div class="splash-fill"></div>
+    </div>
+  </div>
+
+  <!-- ══ LIGHTBOX ══ -->
+  <div id="lightbox">
+    <button class="lb-arrow lb-prev" onclick="lbNav(-1)">&#8250;</button>
+    <div class="lb-inner">
+      <button class="lb-close" onclick="closeLb()">✕</button>
+      <img class="lb-img" id="lb-img" src="Images/rachid.jpg" alt="صورة شخصية">
+      <div class="lb-caption" id="lb-cap"></div>
+    </div>
+    <button class="lb-arrow lb-next" onclick="lbNav(1)">&#8249;</button>
+  </div>
+
+  <!-- ══ VIDEO MODAL ══ -->
+  <div id="vmod">
+    <div class="vmi">
+      <div class="vmh">
+        <h3 id="vm-title">🎬 مشغّل الفيديو</h3>
+        <button class="vmc" onclick="closeVid()">✕</button>
+      </div>
+      <video id="video-player" controls preload="metadata"></video>
+      <div class="video-list" id="video-list"></div>
+    </div>
+  </div>
+
+  <!-- ══ BACK TO TOP ══ -->
+  <button id="btt" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="العودة للأعلى">↑</button>
+
+  <!-- ══ TOPBAR ══ -->
+  <div id="topbar">
+    <div class="logo-area">
+      <div class="title-wrap">
+        <h2>الفضاء الرقمي للإدارة التربوية</h2>
+      </div>
+    </div>
+    <div class="tbr">
+      <!-- GLOBAL SEARCH -->
+      <div id="global-search-wrap">
+        <div id="global-sb">
+          <span class="gsb-icon">🔍</span>
+          <input type="text" id="global-input" placeholder="ابحث عن قسم، ملف، صورة..."
+            oninput="globalSearch(this.value)" autocomplete="off">
+          <button class="gsb-clear" id="gsb-clear" onclick="clearGlobalSearch()" style="display:none">✕</button>
+        </div>
+        <div id="search-results"></div>
+      </div>
+      <div id="menu-toggle" onclick="toggleMobileMenu()">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ HORIZONTAL NAVBAR ══ -->
+  <nav id="navbar">
+
+    <!-- الرئيسية -->
+    <div class="nav-item active" id="ni-home" onclick="spDirect('home')">
+      <span class="ni-ico">🏠</span><span class="ni-lbl">الرئيسية</span>
+    </div>
+
+    <!-- ملفي التراكمي -->
+    <div class="nav-item" id="ni-portfolio" onclick="toggleDropdown(this,'portfolio')">
+      <span class="ni-ico">📁</span><span class="ni-lbl">ملفي التراكمي</span>
+      <span class="ni-arrow">▼</span>
+      <div class="nav-dropdown">
+        <div class="dd-section-label">الجزء الأول — المعطيات والتحليل</div>
+        <div class="dd-link" onclick="spDirect('personal')"><span class="dl-ico">📋</span><span class="dl-txt">المعطيات
+            الشخصية</span></div>
+        <div class="dd-divider"></div>
+        <div class="dd-link" onclick="spDirect('analysis')"><span class="dl-ico">📊</span><span class="dl-txt">التحليل
+            التركيبي</span></div>
+
+        <div class="dd-divider"></div>
+        <div class="dd-section-label">الجزء الثاني — التداريب الميدانية</div>
+        <div class="dd-link" onclick="spAndOpen('training','tr-r')"><span class="dl-ico">📝</span><span
+            class="dl-txt">السنة التكوينية الأولى</span></div>
+        <div class="dd-link" onclick="spAndOpen('training','tr-a')"><span class="dl-ico">🎓</span><span
+            class="dl-txt">التحمل الكلي للمسؤولية</span></div>
+
+        <div class="dd-divider"></div>
+        <div class="dd-section-label">الجزء الثالث — الإبداعات</div>
+        <div class="dd-link" onclick="spAndOpen('creations','cr-m')"><span class="dl-ico">📚</span><span
+            class="dl-txt">المجزوءات</span></div>
+        <div class="dd-link" onclick="spAndOpen('creations','cr-f')"><span class="dl-ico">🏫</span><span
+            class="dl-txt">التداريب الميدانية</span></div>
+        <div class="dd-link" onclick="spAndOpen('creations','cr-s')"><span class="dl-ico">🎓</span><span
+            class="dl-txt">التكوين الذاتي</span></div>
+      </div>
+    </div>
+
+    <!-- المجزوءات والعروض -->
+    <div class="nav-item" id="ni-modules" onclick="toggleDropdown(this,'modules')">
+      <span class="ni-ico">📑</span><span class="ni-lbl">سلك تكوين أطر الإدارةالتربوية</span>
+      <span class="ni-arrow">▼</span>
+      <div class="nav-dropdown">
+        <div class="dd-divider"></div>
+        <div class="dd-link" onclick="spDirect('modules');setTimeout(()=>switchDdTab('modules'),200)"><span
+            class="dl-ico">📚</span><span class="dl-txt">المجزوءات الرسمية</span></div>
+        <div class="dd-link" onclick="spDirect('modules');setTimeout(()=>switchDdTab('slides'),200)"><span
+            class="dl-ico">🖥️</span><span class="dl-txt">العروض </span></div>
+        <div class="dd-link" onclick="spDirect('modules);setTimeout(()=>switchDdTab('examens'),200)"><span
+            class="dl-ico">🖥️</span><span class="dl-txt">امتحانات </span></div>
+      </div>
+    </div>
+
+    <!-- النصوص القانونية والتنظيمية -->
+    <div class="nav-item" id="ni-legal" onclick="toggleDropdown(this,'legal')">
+      <span class="ni-ico">⚖️</span><span class="ni-lbl">نصوص قانونية وتنظيمية</span>
+      <span class="ni-arrow">▼</span>
+      <div class="nav-dropdown">
+        <div class="dd-link" onclick="spDirect('legal')"><span class="dl-ico">⚖️</span><span class="dl-txt">عرض
+            الكل</span></div>
+        <div class="dd-divider"></div>
+        <div class="dd-link" onclick="spAndOpen('legal','lg-d')"><span class="dl-ico">📜</span><span
+            class="dl-txt">الظهائر والقوانين</span></div>
+        <div class="dd-link" onclick="spAndOpen('legal','lg-m')"><span class="dl-ico">📃</span><span
+            class="dl-txt">المراسيم والمناشير</span></div>
+        <div class="dd-link" onclick="spAndOpen('legal','lg-mk')"><span class="dl-ico">📑</span><span
+            class="dl-txt">القرارات والمذكرات</span></div>
+      </div>
+    </div>
+
+    <!-- الدلائل -->
+    <div class="nav-item" id="ni-guides" onclick="spDirect('guides')">
+      <span class="ni-ico">📗</span><span class="ni-lbl">الدلائل</span>
+    </div>
+
+    <!-- مطبوعات -->
+    <div class="nav-item" id="ni-prints" onclick="spDirect('prints')">
+      <span class="ni-ico">🖨️</span><span class="ni-lbl">مطبوعات</span>
+    </div>
+
+    <!-- مواقع مهمة -->
+    <div class="nav-item" id="ni-sites" onclick="spDirect('sites')">
+      <span class="ni-ico">🌐</span><span class="ni-lbl">مواقع مهمة</span>
+    </div>
+  </nav>
+
+  <!-- ══ MOBILE MENU ══ -->
+  <div id="mobile-menu">
+    <div class="mob-direct active" id="mob-home" onclick="spMob('home')">🏠 الصفحة الرئيسية</div>
+
+    <div class="mob-section">
+      <div class="mob-header" onclick="toggleMobSection(this)">
+        <div class="mh-left">📁 ملفي التراكمي</div><span class="mh-arrow">▼</span>
+      </div>
+      <div class="mob-items">
+        <div class="mob-link" style="font-weight:700;color:var(--gold);padding-right:8px;pointer-events:none">الجزء
+          الأول — المعطيات والتحليل</div>
+        <div class="mob-link" onclick="spMob('personal')">📋 المعطيات الشخصية</div>
+        <div class="mob-link" onclick="spMob('analysis')">📊 التحليل التركيبي</div>
+        <div class="mob-link" style="font-weight:700;color:var(--gold);padding-right:8px;pointer-events:none">الجزء
+          الثاني — التداريب الميدانية</div>
+        <div class="mob-link" onclick="spMob('training')">🏫 التداريب الميدانية</div>
+        <div class="mob-link" onclick="spMobSv('training','tr-r')">📝 السنة الأولى</div>
+        <div class="mob-link" onclick="spMobSv('training','tr-a')">📝 السنة الثانية</div>
+        <div class="mob-link" style="font-weight:700;color:var(--gold);padding-right:8px;pointer-events:none">الجزء
+          الثالث — الإبداعات</div>
+        <div class="mob-link" onclick="spMob('creations')">✨ الإبداعات</div>
+        <div class="mob-link" onclick="spMobSv('creations','cr-m')">📚 المجزوءات</div>
+        <div class="mob-link" onclick="spMobSv('creations','cr-f')">🏫 التداريب الميدانية</div>
+        <div class="mob-link" onclick="spMobSv('creations','cr-s')">🎓 التكوين الذاتي</div>
+      </div>
+    </div>
+
+    <div class="mob-section">
+      <div class="mob-header" onclick="toggleMobSection(this)">
+        <div class="mh-left">📑 المجزوءات والعروض</div><span class="mh-arrow">▼</span>
+      </div>
+      <div class="mob-items">
+        <div class="mob-link" onclick="spMob('modules')">📑 المجزوءات الرسمية</div>
+        <div class="mob-link" onclick="spMob('modules');setTimeout(()=>switchDdTab('slides'),200)">🖥️ العروض </div>
+        <div class="mob-link" onclick="spMob('modules');setTimeout(()=>switchDdTab('examens'),200)">🖥️ امتحانات </div>
+
+      </div>
+    </div>
+
+    <div class="mob-section">
+      <div class="mob-header" onclick="toggleMobSection(this)">
+        <div class="mh-left">⚖️ نصوص قانونية وتنظيمية</div><span class="mh-arrow">▼</span>
+      </div>
+      <div class="mob-items">
+        <div class="mob-link" onclick="spMobSv('legal','lg-d')">📜 الظهائر والقوانين</div>
+        <div class="mob-link" onclick="spMobSv('legal','lg-m')">📃 المراسيم والمناشير</div>
+        <div class="mob-link" onclick="spMobSv('legal','lg-mk')">📑 القرارات والمذكرات</div>
+      </div>
+    </div>
+
+    <div class="mob-direct" id="mob-guides" onclick="spMob('guides')">📗 الدلائل</div>
+    <div class="mob-direct" id="mob-prints" onclick="spMob('prints')">🖨️ مطبوعات</div>
+    <div class="mob-direct" id="mob-sites" onclick="spMob('sites')">🌐 مواقع مهمة</div>
+  </div>
+
+  <!-- ══ MAIN ══ -->
+  <div id="main">
+
+    <!-- HOME — merged with Hamadaoui -->
+    <div class="pg active" id="pg-home">
+
+      <!-- TWO-COLUMN LAYOUT -->
+      <div class="home-top-grid">
+
+        <!-- RIGHT COLUMN: quote + hero + crmef -->
+        <div class="home-left-col">
+
+          <!-- Compact quote -->
+          <div class="quote-banner-sm">
+            <span class="qm">"</span>
+            <div>
+              <div class="qt" id="rotating-quote">القيادة التربوية فن يجمع بين العلم والإنسانية في خدمة المتعلم.</div>
+            </div>
+          </div>
+
+          <!-- Compact hero -->
+          <div class="hero-sm">
+            <h2>مرحباً بكم في <em>الملف التراكمي</em> لسلك تكوين أطر الإدارة التربوية</h2>
+            <p>يتضمن هذا الملف جميع المنجزات والأنشطة التكوينية والتداريب الميدانية للفوج 2025-2027.</p>
+            <div class="hmeta">
+              <div class="mchip"><span class="mi">🏛️</span>
+                <div class="info"><strong> المركز الجهوي لمهن التربية والتكوين جهة فاس مكناس </strong>المقر الرئيس فاس
+                </div>
+              </div>
+              <div class="mchip"><span class="mi">🎓</span>
+                <div class="info"><strong>سلك تكوين أطر الإدارة التربوية</strong>فوج 2025-2027</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- CRMEF image card (compact) -->
+          <div class="crmef-sm">
+            <div class="iph blue" id="center-ph">
+              <img id="center-img" src="Images/CRMEF.png" alt="صورة المركز" onerror="this.style.display='none'"
+                style="display:none;"
+                onload="this.style.display='block';this.closest('.iph').querySelector('.bi')&&(this.closest('.iph').querySelector('.bi').style.display='none');this.closest('.iph').querySelector('.ic')&&(this.closest('.iph').querySelector('.ic').style.display='none');">
+              <span class="bi">🏫</span>
+              <span class="ic">المركز الجهوي لمهن التربية والتكوين</span>
+            </div>
+            <div class="cbody">
+              <h3>المركز الجهوي لمهن التربية والتكوين</h3>
+              <p>مؤسسة لتكوين الأطر العليا خاضعة لوصاية السلطة الحكومية المكلفة بالتربية الوطنية</p>
+            </div>
+          </div>
+        </div><!-- /home-left-col -->
+
+        <!-- LEFT COLUMN: profile card -->
+        <div class="home-right-col">
+          <div class="pcard-home pcard">
+            <div class="pbanner">
+              <div class="paw">
+                <div class="pav">
+                  <span id="av-emoji">👨‍💼</span>
+                  <img src="Images/rachid.jpg" alt="صورة شخصية" onerror="this.style.display='none'"
+                    onload="this.style.display='block';document.getElementById('av-emoji').style.display='none';"
+                    style="display:none;">
+                </div>
+              </div>
+            </div>
+            <div class="pbody">
+              <h2>الحمداوي رشيد</h2>
+              <div class="prole">متدرب — أطر الإدارة التربوية</div>
+              <div class="pig">
+                <div class="pit">
+                  <div class="pil">الاسم الكامل</div>
+                  <div class="piv">الحمداوي رشيد</div>
+                </div>
+                <div class="pit">
+                  <div class="pil">السلك</div>
+                  <div class="piv">أطر الإدارة التربوية</div>
+                </div>
+                <div class="pit">
+                  <div class="pil">الفوج</div>
+                  <div class="piv">2025 - 2027</div>
+                </div>
+                <div class="pit">
+                  <div class="pil">المركز</div>
+                  <div class="piv">CRMEF فاس مكناس</div>
+                </div>
+                <div class="pit">
+                  <div class="pil">بداية التكوين</div>
+                  <div class="piv">02 نونبر 2025</div>
+                </div>
+                <div class="pit">
+                  <div class="pil">التخرج</div>
+                  <div class="piv">30 يونيو 2027</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div><!-- /home-right-col -->
+
+      </div><!-- /home-top-grid -->
+      <!-- TIMELINE + SKILLS -->
+      <div class="timeline-wrap">
+        <div class="timeline-title">📅 المسار التكويني — الخط الزمني</div>
+        <div class="timeline">
+          <div class="tl-item">
+            <div class="tl-dot done">✓</div>
+            <div class="tl-content">
+              <h4>🏛️ الالتحاق بالمركز الجهوي للتكوين</h4>
+              <div class="tl-date">02 نونبر 2025</div><span class="tl-badge done">✅ منجز</span>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot done">✓</div>
+            <div class="tl-content">
+              <h4>🏫 المرحلة الأولى — الاستئناس بالوسط المدرسي</h4>
+              <div class="tl-date">17 — 29 نونبر 2025</div><span class="tl-badge done">✅ منجز</span>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot done">✓</div>
+            <div class="tl-content">
+              <h4>🏫 المرحلة الثانية — مؤسسة ابتدائية</h4>
+              <div class="tl-date">01 دجنبر 2025 — 24 يناير 2026</div><span class="tl-badge done">✅ منجز</span>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot done">✓</div>
+            <div class="tl-content">
+              <h4>🏫 المرحلة الثالثة — مؤسسة إعدادية</h4>
+              <div class="tl-date">02 فبراير — 04 أبريل 2026</div><span class="tl-badge active">✅ منجز</span>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot active">●</div>
+            <div class="tl-content">
+              <h4>🏫 المرحلة الرابعة — مؤسسة تأهيلية</h4>
+              <div class="tl-date">06 أبريل — 30 ماي 2026</div><span class="tl-badge future">🔄 جارٍ</span>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-content">
+              <h4>🏫 المرحلة الخامسة — المركز الجهوي</h4>
+              <div class="tl-date">01 يونيو — 11 يوليوز 2026</div><span class="tl-badge future">⏳ قادم</span>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-content">
+              <h4>📋 السنة الثانية — التحمل الكلي للمسؤولية</h4>
+              <div class="tl-date">أكتوبر 2026 — يونيو 2027</div><span class="tl-badge future">⏳ قادم</span>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-content">
+              <h4>🎓 التخرج والتعيين</h4>
+              <div class="tl-date">30 يونيو 2027</div><span class="tl-badge future">🎯 الهدف</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="skills-wrap">
+        <div class="skills-title">🧠 شبكة الكفايات المكتسبة</div>
+        <div class="skills-grid" id="skills-grid">
+          <div class="skill-item">
+            <div class="skill-header"><span class="skill-name">🏛️ التدبير الإداري</span><span
+                class="skill-pct">60%</span></div>
+            <div class="skill-bar">
+              <div class="skill-fill" data-pct="60"></div>
+            </div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-header"><span class="skill-name">📚 التدبير التربوي</span><span
+                class="skill-pct">70%</span></div>
+            <div class="skill-bar">
+              <div class="skill-fill" data-pct="70"></div>
+            </div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-header"><span class="skill-name">💰 التدبير المالي والمادي</span><span
+                class="skill-pct">90%</span></div>
+            <div class="skill-bar">
+              <div class="skill-fill" data-pct="90"></div>
+            </div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-header"><span class="skill-name">🤝 قيادة الفرق والتواصل</span><span
+                class="skill-pct">50%</span></div>
+            <div class="skill-bar">
+              <div class="skill-fill" data-pct="50"></div>
+            </div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-header"><span class="skill-name">📊 التخطيط والتتبع</span><span
+                class="skill-pct">80%</span></div>
+            <div class="skill-bar">
+              <div class="skill-fill" data-pct="80"></div>
+            </div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-header"><span class="skill-name">💻 التكنولوجيا التربوية</span><span
+                class="skill-pct">88%</span></div>
+            <div class="skill-bar">
+              <div class="skill-fill" data-pct="88"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FOOTER -->
+      <div class="home-footer">
+        <div class="footer-top">
+          <div class="footer-brand">
+            <div class="fb-logo">
+              <div class="fb-logo-icon"><img src="Images/logoc.png" alt="شعار المركز"
+                  onerror="this.parentElement.innerHTML='🎓'"></div>
+              <div class="fb-name">الملف التراكمي<br>سلك تكوين أطر الإدارة التربوية</div>
+            </div>
+            <p class="fb-desc">هذا الملف التراكمي وثيقة تربوية رسمية تعكس المسار التكويني للأستاذ الحمداوي رشيد خلال
+              فترة تكوينه بالمركز الجهوي لمهن التربية والتكوين لجهة فاس مكناس، فوج 2025-2027. جميع المحتويات محفوظة ولا
+              يجوز نسخها أو توزيعها دون إذن صاحبها.</p>
+          </div>
+          <div class="footer-col">
+            <h4>📍 معلومات الاتصال</h4>
+            <ul>
+              <li><span class="fli">👤</span>الحمداوي رشيد</li>
+              <li><span class="fli">📧</span><a
+                  href="/cdn-cgi/l/email-protection#83ebe2eee2e7e2ecf6eaadf1e2e0ebeae7c3e6e7f6ade4ecf5adeee2"><span
+                    class="__cf_email__" data-cfemail="355d54585451545a405c1b4754565d5c51755051401b525a431b5854"><span
+                      class="__cf_email__"
+                      data-cfemail="b6e4f7f5fefff298f3fafef7fbf2f7f9e3ef87f6e2f7f7fafffb98fbf7">[email&#160;protected]</span></span></a>
+              </li>
+              <li><span class="fli">📞</span><a dir="ltr" href="tel:+212679754528">+212 6 79 75 45 28</a></li>
+              <li><span class="fli">🏛️</span>CRMEF_FES MEKNES </li>
+              <li><span class="fli">📍</span>فاس — المغرب</li>
+              <li><span class="fli">🕐</span>فوج 2025 - 2027</li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>💬 تواصل معي</h4>
+            <div class="footer-contact-form">
+              <input type="text" placeholder="اسمك الكامل" id="fc-name">
+              <input type="email" placeholder="بريدك الإلكتروني" id="fc-email" style="direction:ltr">
+              <textarea rows="3" placeholder="رسالتك..." id="fc-msg"></textarea>
+              <button onclick="sendContact()">إرسال الرسالة ✉️</button>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <div class="footer-copy">© <span id="footer-year"></span> — جميع الحقوق محفوظة <span>للحمداوي رشيد</span>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /pg-home -->
+
+    <!-- PERSONAL -->
+    <div class="pg" id="pg-personal">
+      <div class="sechdr">
+        <div class="shico">📋</div>
+        <div>
+          <h2>المعطيات الشخصية</h2>
+        </div>
+      </div>
+      <div class="cgrid">
+        <div class="dc">
+          <div class="dci">✉️</div>
+          <h3>رسالة التحفيز</h3>
+          <p>رسالة التحفيز المتعلقة بدوافع الالتحاق بسلك تكوين أطر الإدارة التربوية.</p>
+          <div class="dc-foot">
+            <a href="https://drive.google.com/file/d/1M0QAWrOoBm4_6Noan4K9oSuI56rklMM_/view?usp=sharing" target="_blank"
+              class="bview">📂 عرض</a>
+          </div>
+        </div>
+
+        <div class="dc">
+          <div class="dci">📄</div>
+          <h3>السيرة الذاتية</h3>
+          <p>السيرة الذاتية الكاملة المتضمنة للمسار الدراسي والمهني والكفاءات المكتسبة.</p>
+          <div class="dc-foot">
+            <a href="https://drive.google.com/file/d/141nHi9Qyf5VdN7MZdv7v2rQrhKDEMB78/view?usp=sharing" target="_blank"
+              class="bview">📂 عرض</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ANALYSIS -->
+    <div class="pg" id="pg-analysis">
+      <div class="sechdr">
+        <div class="shico">📊</div>
+        <div>
+          <h2>التحليل التركيبي</h2>
+          <p>تحليل أنشطة التكوين والتداريب الميدانية</p>
+        </div>
+      </div>
+      <div id="am">
+        <div class="sigrid">
+          <div class="sic" onclick="ssv('analysis','an-t')"><span class="sii">📘</span>
+            <h3>تحليل تركيبي لأنشطة التكوين</h3>
+            <div class="cnt">4 مجموعات</div>
+          </div>
+          <div class="sic" onclick="ssv('analysis','an-f')"><span class="sii">🏫</span>
+            <h3>تحليل تركيبي لأنشطة التداريب الميدانية</h3>
+            <div class="cnt">6 مراحل</div>
+          </div>
+        </div>
+      </div>
+      <div class="sv" id="an-t">
+        <button class="back" onclick="hsv('an-t','am')">← العودة</button>
+        <div class="sst">📘 تحليل تركيبي لأنشطة التكوين</div>
+        <div class="cgrid">
+          <div class="dc">
+            <h3> تحليل تركيبي لمجزوءات المجموعة الأولى</h3>
+            <div class="dc-foot">
+              <a href="https://drive.google.com/file/d/141nHi9Qyf5VdN7MZdv7v2rQrhKDEMB78/view?usp=sharing"
+                target="_blank" class="bview">📂 عرض</a>
+            </div>
+          </div>
+          <div class="dc">
+            <h3> تحليل تركيبي لمجزوءات المجموعة الثانية</h3>
+            <div class="dc-foot">
+              <a href="https://drive.google.com/file/d/141nHi9Qyf5VdN7MZdv7v2rQrhKDEMB78/view?usp=sharing"
+                target="_blank" class="bview">📂 عرض</a>
+            </div>
+          </div>
+          <div class="dc">
+            <h3> تحليل تركيبي لمجزوءات المجموعة الثالثة</h3>
+            <div class="dc-foot">
+              <a href="https://drive.google.com/file/d/141nHi9Qyf5VdN7MZdv7v2rQrhKDEMB78/view?usp=sharing"
+                target="_blank" class="bview">📂 عرض</a>
+
+            </div>
+          </div>
+          <div class="dc">
+            <h3> تحليل تركيبي لمجزوءات المجموعة الرابعة</h3>
+            <p>تضم هذه المجموعة المجزوءات التالبة: التأطير</p>
+            <div class="dc-foot">
+              <a href="https://drive.google.com/file/d/141nHi9Qyf5VdN7MZdv7v2rQrhKDEMB78/view?usp=sharing"
+                target="_blank" class="bview">📂 عرض</a>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="sv" id="an-f">
+        <button class="back" onclick="hsv('an-f','am')">← العودة</button>
+        <div class="sst">🏫 تحليل تركيبي لأنشطة التداريب الميدانية</div>
+        <div class="cgrid">
+          <div class="dc">
+            <h3> تحليل تركيبي للمرحلة الأولى</h3>
+            <div class="dc-foot">
+              <a href="https://drive.google.com/file/d/141nHi9Qyf5VdN7MZdv7v2rQrhKDEMB78/view?usp=sharing"
+                target="_blank" class="bview">📂 عرض</a>
+            </div>
+          </div>
+          <div class="dc">
+            <h3> تحليل تركيبي للمرحلة الثانية</h3>
+            <div class="dc-foot">
+              <a href="https://drive.google.com/file/d/141nHi9Qyf5VdN7MZdv7v2rQrhKDEMB78/view?usp=sharing"
+                target="_blank" class="bview">📂 عرض</a>
+            </div>
+          </div>
+          <div class="dc">
+            <h3> تحليل تركيبي للمرحلة الثالثة</h3>
+            <div class="dc-foot">
+              <a href="https://drive.google.com/file/d/141nHi9Qyf5VdN7MZdv7v2rQrhKDEMB78/view?usp=sharing"
+                target="_blank" class="bview">📂 عرض</a>
+            </div>
+          </div>
+          <div class="dc">
+            <h3> تحليل تركيبي للمرحلة الرابعة</h3>
+            <div class="dc-foot">
+              <a href="https://drive.google.com/file/d/141nHi9Qyf5VdN7MZdv7v2rQrhKDEMB78/view?usp=sharing"
+                target="_blank" class="bview">📂 عرض</a>
+            </div>
+          </div>
+          <div class="dc">
+            <h3> تحليل تركيبي للمرحلة الخامسة</h3>
+            <div class="dc-foot">
+              <a href="https://drive.google.com/file/d/141nHi9Qyf5VdN7MZdv7v2rQrhKDEMB78/view?usp=sharing"
+                target="_blank" class="bview">📂 عرض</a>
+            </div>
+          </div>
+          <div class="dc">
+            <h3> تحليل تركيبي للمرحلة السادسة</h3>
+            <div class="dc-foot">
+              <a href="https://drive.google.com/file/d/141nHi9Qyf5VdN7MZdv7v2rQrhKDEMB78/view?usp=sharing"
+                target="_blank" class="bview">📂 عرض</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- TRAINING -->
+    <div class="pg" id="pg-training">
+      <div class="sechdr">
+        <div class="shico">🏫</div>
+        <div>
+          <h2>أنشطة التداريب الميدانية</h2>
+          <p>تقارير تركيبية ووثائق مرفقة وصور لكل مرحلة</p>
+        </div>
+      </div>
+      <div id="tm">
+        <div class="sigrid">
+          <div class="sic" onclick="ssv('training','tr-r')"><span class="sii">📝</span>
+            <h3>السنة التكوينية الأولى</h3>
+          </div>
+          <div class="sic" onclick="ssv('training','tr-a')"><span class="sii">📝</span>
+            <h3>السنة التكوينيةالثانية</h3>
+          </div>
+        </div>
+      </div>
+      <div class="sv" id="tr-r">
+        <button class="back" onclick="hsv('tr-r','tm')">← العودة</button>
+        <div class="sst">📝 الوثائق الخاصة بالتداريب الميدانية للسنة التكوينية الأولى</div>
+
+        <div class="sigrid">
+          <div class="sic"
+            onclick="document.getElementById('tr-r').classList.remove('open'); document.getElementById('stage-1').classList.add('open');">
+            <span class="sii">1️⃣</span>
+            <h3>المرحلة الأولى</h3>
+            <p>من 17 نونبر 2025 <br> إلى 29 نونبر 2025</p>
+          </div>
+
+          <div class="sic"
+            onclick="document.getElementById('tr-r').classList.remove('open'); document.getElementById('stage-2').classList.add('open');">
+            <span class="sii">2️⃣</span>
+            <h3>المرحلة الثانية</h3>
+            <p>من 01 دجنبر 2025 <br> إلى 24 يناير 2026</p>
+
+          </div>
+
+          <div class="sic"
+            onclick="document.getElementById('tr-r').classList.remove('open'); document.getElementById('stage-3').classList.add('open');">
+            <span class="sii">3️⃣</span>
+            <h3>المرحلة الثالثة</h3>
+            <p>من 02 فبراير 2026 <br> إلى 04 أبريل 2026</p>
+
+          </div>
+
+          <div class="sic"
+            onclick="document.getElementById('tr-r').classList.remove('open'); document.getElementById('stage-4').classList.add('open');">
+            <span class="sii">4️⃣</span>
+            <h3>المرحلة الرابعة</h3>
+            <p>من 06 أبريل 2026 <br> إلى 30 ماي 2026</p>
+
+          </div>
+
+          <div class="sic"
+            onclick="document.getElementById('tr-r').classList.remove('open'); document.getElementById('stage-5').classList.add('open');">
+            <span class="sii">5️⃣</span>
+            <h3>المرحلة الخامسة</h3>
+            <p>من 01 يونيو 2026 <br> إلى 11 يوليوز 2026</p>
+
+          </div>
+
+        </div>
+      </div>
+
+      <div class="sv" id="tr-a">
+        <button class="back" onclick="hsv('tr-a','tm')">← العودة</button>
+        <div class="sst">📝 التحمل الكلي للمسؤولية</div>
+      </div>
+
+      <div class="sv" id="stage-1">
+        <button class="back"
+          onclick="document.getElementById('stage-1').classList.remove('open'); document.getElementById('tr-r').classList.add('open');">←
+          العودة للمراحل</button>
+        <div class="sst" style="font-size: 20px;">🏫 المرحلة الأولى: الاستئناس بالوسط السوسيومهني للمؤسسة</div>
+
+        <div class="sst">📄 التقرير والملحقات</div>
+        <div class="cgrid">
+          <div class="dc" style="border-color: var(--navy); border-width: 2px;">
+            <div class="dci">📊</div>
+            <h3>التقرير التركيبي للمرحلة</h3>
+            <p>التقرير الشامل والمفصل حول مجريات وملاحظات فترة التدريب.</p>
+            <div class="dc-foot">
+              <a href="https://drive.google.com/file/d/1eknXnKWlSUdPbXXUTFW1qM3j96A9hWaF/view?usp=sharing"
+                target="_blank" class="bview">📂 عرض</a>
+            </div>
+          </div>
+
+          <div class="dc">
+            <div class="dci">📎</div>
+            <h3>قسسم الشؤون القانونية والشراكات </h3>
+            <p>ملحق يتضمن مهام قسم الشؤون القانونية والشراكات </p>
+            <div class="dc-foot">
+              <a href="https://drive.google.com/file/d/1rxKlS6WaNw5Gjx6hYErHlwEruY4JbM1g/view?usp=sharing"
+                target="_blank" class="bview">📂 عرض</a>
+            </div>
+          </div>
+
+          <div class="dc">
+            <div class="dci">📎</div>
+            <h3>قسم التخطيط والخريطة المدرسية </h3>
+            <p>ملحق يتضمن مهام قسم التخطيط والخريطة المدرسية </p>
+            <div class="dc-foot">
+              <a href="https://drive.google.com/file/d/1ftRB_S2gBaqH2KYs6jITXfKljOhCVffQ/view?usp=sharing"
+                target="_blank" class="bview">📂 عرض</a>
+            </div>
+          </div>
+
+          <div class="dc">
+            <div class="dci">📎</div>
+            <h3>قسم تدبير الموارد البشرية </h3>
+            <p>ملحق يتضمن مهام قسم تدبير الموارد البشرية </p>
+            <div class="dc-foot">
+              <a href="https://drive.google.com/file/d/1VVVPUsTAZ-nmErLgjY49Ctwe0O1B-9UM/view?usp=sharing"
+                target="_blank" class="bview">📂 عرض</a>
+            </div>
+          </div>
+
+          <div class="dc">
+            <div class="dci">📎</div>
+            <h3>مصلحة البناءات والتجهيزات </h3>
+            <p>ملحق يتضمن مهام مصلحة البناءات والتجهيزات </p>
+            <div class="dc-foot">
+              <a href="https://drive.google.com/file/d/1qFHrcQ6r5lAqGKKOb9gVLRwb4pz_QIyM/view?usp=sharing"
+                target="_blank" class="bview">📂 عرض</a>
+            </div>
+          </div>
+
+          <div class="dc">
+            <div class="dci">📎</div>
+            <h3>مصلحة التواصل </h3>
+            <p>ملحق يتضمن مهام مصلحة التواصل </p>
+            <div class="dc-foot">
+              <a href="https://drive.google.com/file/d/1Bo7kLjRjrDKRVJjJ1m1RuOg3mrTefw5X/view?usp=sharing"
+                target="_blank" class="bview">📂 عرض</a>
+            </div>
+          </div>
+
+          <div class="dc">
+            <div class="dci">📎</div>
+            <h3>الوحدة الجهوية للافتحاص </h3>
+            <p>ملحق يتضمن مهام الوحدة الجهوية للافتحاص </p>
+            <div class="dc-foot">
+              <a href="https://drive.google.com/file/d/1uqVgBwcHBh2Ryu-h_HZrii0T9T_WarFe/view?usp=sharing"
+                target="_blank" class="bview">📂 عرض</a>
+            </div>
+          </div>
+
+          <div class="dc">
+            <div class="dci">📎</div>
+            <h3>مصلحة منظومة الإعلام </h3>
+            <p>ملحق يتضمن مهام مصلحة منظومة الإعلام </p>
+            <div class="dc-foot">
+              <a href="https://drive.google.com/file/d/1Ry2UmzJF3fsyRzGFD1N4t_EI7hU9hID7/view?usp=sharing"
+                target="_blank" class="bview">📂 عرض</a>
+            </div>
+          </div>
+
+          <div class="dc">
+            <div class="dci">📎</div>
+            <h3>قسم الشؤون التربوية </h3>
+            <p>ملحق يتضمن مهام واختصاصات قسم الشؤون التربوية </p>
+            <div class="dc-foot">
+              <a href="https://drive.google.com/file/d/1nlZvvVAHcX8ltMyIKnNlmycQAWUpgteC/view?usp=sharing"
+                target="_blank" class="bview">📂 عرض</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="sst" style="margin-top: 32px;">📸 صور توثيقية للمرحلة</div>
+        <div class="photog">
+
+          <div class="phs">
+            <img src="Images/phase1_1.jpg" alt="صورة توثيقية 1" onerror="this.style.display='none'">
+            <div class="ph-label"
+              style="position: absolute; bottom: 0; background: rgba(0,0,0,0.65); width: 100%; padding: 6px 0; text-align: center; color: white;">
+              زيارة المديرية الإقليمية</div>
+          </div>
+
+          <div class="phs">
+            <img src="Images/phase1_3.jpg" alt="صورة توثيقية 1" onerror="this.style.display='none'">
+            <div class="ph-label"
+              style="position: absolute; bottom: 0; background: rgba(0,0,0,0.65); width: 100%; padding: 6px 0; text-align: center; color: white;">
+              زيارة الأكاديمية الجهوية للتربية والتكوين جهة فاس مكناس </div>
+          </div>
+
+          <div class="phs">
+            <img src="Images/phase1_2.jpg" alt="صورة توثيقية 1" onerror="this.style.display='none'">
+            <div class="ph-label"
+              style="position: absolute; bottom: 0; background: rgba(0,0,0,0.65); width: 100%; padding: 6px 0; text-align: center; color: white;">
+              زيارة الأكاديمية الجهوية للتربية والتكوين جهة فاس مكناس</div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="sv" id="stage-2">
+        <button class="back"
+          onclick="document.getElementById('stage-2').classList.remove('open'); document.getElementById('tr-r').classList.add('open');">←
+          العودة للمراحل</button>
+
+        <div class="sst" style="font-size: 20px;">🏫 المرحلة الثانية: التداريب بمؤسسة تعليمية ابتدائية</div>
+
+        <div class="sst">📄 التقرير والملحقات</div>
+        <div class="cgrid">
+
+          <div class="dc" style="border-color: var(--navy); border-width: 2px;">
+            <div class="dci">📊</div>
+            <h3>التقرير التركيبي للمرحلة الثانية</h3>
+            <p>تقرير حول آليات التدبير التربوي، تتبع الغياب، وتفعيل مجالس المؤسسة.</p>
+            <div class="dc-foot">
+              <a href="https://drive.google.com/file/d/1ptDqdpMvATfRQE7grmGECC57Fk4BDwua/view?usp=sharing"
+                target="_blank" class="bview">📂 عرض</a>
+            </div>
+          </div>
+
+          <div class="dc">
+            <div class="dci">📎</div>
+            <h3>المذكرة اليومية</h3>
+            <p>بطاقات التتبع الخاصة بالمرحلة الثانية</p>
+            <div class="dc-foot">
+              <a href="https://drive.google.com/file/d/1vJC8GJrDKGBD3JJFO6U2baYkaA3kvv5X/view?usp=sharing"
+                target="_blank" class="bview">📂 عرض</a>
+            </div>
+          </div>
+
+          <div class="dc">
+            <div class="dci">📎</div>
+            <h3>وثيقة الضمان المدرسي</h3>
+            <p>تعتبر بطاقة الضمان المدرسي من الوثائق الأساسية التي يملئها المدير</p>
+            <div class="dc-foot">
+              <a href="https://drive.google.com/file/d/141nHi9Qyf5VdN7MZdv7v2rQrhKDEMB78/view?usp=sharing"
+                target="_blank" class="bview">📂 عرض</a>
+            </div>
+          </div>
+
+          <div class="dc">
+            <div class="dci">📎</div>
+            <h3>البرمجة الزمنية لتمرير الامتحان الموحد المحلي </h3>
+            <p>يتم إعداد برنامج</p>
+            <div class="dc-foot">
+              <a href="https://drive.google.com/file/d/141nHi9Qyf5VdN7MZdv7v2rQrhKDEMB78/view?usp=sharing"
+                target="_blank" class="bview">📂 عرض</a>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="sst" style="margin-top: 32px;">📸 صور توثيقية للمرحلة</div>
+        <div class="photog">
+
+          <div class="phs">
+            <img src="Images/phase2_1.jpg" alt="واجهة المؤسسة" onerror="this.style.display='none'">
+            <div class="ph-label"
+              style="position: absolute; bottom: 0; background: rgba(0,0,0,0.65); width: 100%; padding: 6px 0; text-align: center; color: white;">
+              واجهة المؤسسة</div>
+          </div>
+
+          <div class="phs">
+            <img src="Images/phase2_2.jpg" alt="تنظيم الأرشيف" onerror="this.style.display='none'">
+            <div class="ph-label"
+              style="position: absolute; bottom: 0; background: rgba(0,0,0,0.65); width: 100%; padding: 6px 0; text-align: center; color: white;">
+              تنظيم الأرشيف الجاري</div>
+          </div>
+
+          <div class="phs">
+            <img src="Images/phase2_2.jpg" alt="تنظيم الأرشيف" onerror="this.style.display='none'">
+            <div class="ph-label"
+              style="position: absolute; bottom: 0; background: rgba(0,0,0,0.65); width: 100%; padding: 6px 0; text-align: center; color: white;">
+              تنظيم الأرشيف</div>
+          </div>
+
+          <div class="phs">
+            <img src="Images/phase2_2.jpg" alt="تنظيم الأرشيف" onerror="this.style.display='none'">
+            <div class="ph-label"
+              style="position: absolute; bottom: 0; background: rgba(0,0,0,0.65); width: 100%; padding: 6px 0; text-align: center; color: white;">
+              تنظيم الأرشيف</div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="sv" id="stage-3">
+        <button class="back"
+          onclick="document.getElementById('stage-3').classList.remove('open'); document.getElementById('tr-r').classList.add('open');">←
+          العودة للمراحل</button>
+
+        <div class="sst" style="font-size: 20px;">🏫 المرحلة الثالثة: التداريب بمؤسسة تعليمية إعدادية</div>
+
+        <div class="sst">📄 التقرير والملحقات</div>
+        <div class="cgrid">
+
+          <div class="dc" style="border-color: var(--navy); border-width: 2px;">
+            <div class="dci">💰</div>
+            <h3>التقرير التركيبي للمرحلة الثالثة</h3>
+            <p>تقرير حول تدبير ممتلكات المؤسسة، سجلات الجرد، والمداخيل والمصاريف.</p>
+            <div class="dc-foot">
+              <a href="https://drive.google.com/file/d/141nHi9Qyf5VdN7MZdv7v2rQrhKDEMB78/view?usp=sharing"
+                target="_blank" class="bview">📂 عرض</a>
+            </div>
+          </div>
+
+          <div class="dc">
+            <div class="dci">📜</div>
+            <h3>سجل الجرد العام (Inventaire)</h3>
+            <p>نموذج لضبط الممتلكات العقارية والمنقولة والوسائل التعليمية.</p>
+            <div class="dc-foot">
+              <a href="https://drive.google.com/file/d/141nHi9Qyf5VdN7MZdv7v2rQrhKDEMB78/view?usp=sharing"
+                target="_blank" class="bview">📂 عرض</a>
+            </div>
+          </div>
+
+          <div class="dc">
+            <div class="dci">📋</div>
+            <h3>تدبير الأرشيف والمخزون</h3>
+            <p>توثيق لطريقة تنظيم الأرشيف الإداري والمالي للمؤسسة.</p>
+            <div class="dc-foot">
+              <a href="https://drive.google.com/file/d/141nHi9Qyf5VdN7MZdv7v2rQrhKDEMB78/view?usp=sharing"
+                target="_blank" class="bview">📂 عرض</a>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="sst" style="margin-top: 32px;">📸 صور توثيقية للمرحلة</div>
+        <div class="photog">
+
+          <div class="phs">
+            <img src="Images/phase3_1.jpg" alt="سجلات الجرد" onerror="this.style.display='none'">
+            <div class="ph-label"
+              style="position: absolute; bottom: 0; background: rgba(0,0,0,0.65); width: 100%; padding: 6px 0; text-align: center; color: white;">
+              الاطلاع على السجلات</div>
+          </div>
+
+          <div class="phs">
+            <img src="Images/phase3_2.jpg" alt="المرافق المادية" onerror="this.style.display='none'">
+            <div class="ph-label"
+              style="position: absolute; bottom: 0; background: rgba(0,0,0,0.65); width: 100%; padding: 6px 0; text-align: center; color: white;">
+              مرافق المؤسسة</div>
+          </div>
+
+          <div class="phs">
+            <img src="Images/phase3_3.jpg" alt="الأرشيف" onerror="this.style.display='none'">
+            <div class="ph-label"
+              style="position: absolute; bottom: 0; background: rgba(0,0,0,0.65); width: 100%; padding: 6px 0; text-align: center; color: white;">
+              تنظيم الأرشيف</div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="sv" id="stage-4">
+        <button class="back"
+          onclick="document.getElementById('stage-4').classList.remove('open'); document.getElementById('tr-r').classList.add('open');">←
+          العودة للمراحل</button>
+
+        <div class="sst" style="font-size: 20px;">🏫 المرحلة الرابعة: التداريب بمؤسسة تعليمية تأهيلية</div>
+
+        <div class="sst">📄 التقرير والملحقات</div>
+        <div class="cgrid">
+
+          <div class="dc" style="border-color: var(--navy); border-width: 2px;">
+            <div class="dci">👥</div>
+            <h3>التقرير التركيبي للمرحلة الرابعة</h3>
+            <p>تقرير حول تدبير هيئة التدريس والإدارة، وتفعيل قنوات التواصل الداخلي والخارجي.</p>
+            <div class="dc-foot">
+              <a href="https://drive.google.com/file/d/141nHi9Qyf5VdN7MZdv7v2rQrhKDEMB78/view?usp=sharing"
+                target="_blank" class="bview">📂 عرض</a>
+            </div>
+          </div>
+
+          <div class="dc">
+            <div class="dci">📝</div>
+            <h3>تتبع غياب ورخص الموظفين</h3>
+            <p>نماذج من سجلات التتبع اليومي لغياب الأطر التربوية والإدارية والإجراءات المتخذة.</p>
+            <div class="dc-foot">
+              <a href="https://drive.google.com/file/d/141nHi9Qyf5VdN7MZdv7v2rQrhKDEMB78/view?usp=sharing"
+                target="_blank" class="bview">📂 عرض</a>
+            </div>
+          </div>
+
+          <div class="dc">
+            <div class="dci">📢</div>
+            <h3>خطة التواصل مع أولياء الأمور</h3>
+            <p>توثيق للاجتماعات واللقاءات التواصلية مع جمعية الأمهات والآباء والأولياء.</p>
+            <div class="dc-foot">
+              <a href="https://drive.google.com/file/d/141nHi9Qyf5VdN7MZdv7v2rQrhKDEMB78/view?usp=sharing"
+                target="_blank" class="bview">📂 عرض</a>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="sst" style="margin-top: 32px;">📸 صور توثيقية للمرحلة</div>
+        <div class="photog">
+
+          <div class="phs">
+            <img src="Images/phase4_1.jpg" alt="لقاء مع الأساتذة" onerror="this.style.display='none'">
+            <div class="ph-label"
+              style="position: absolute; bottom: 0; background: rgba(0,0,0,0.65); width: 100%; padding: 6px 0; text-align: center; color: white;">
+              لقاء مع الطاقم التربوي</div>
+          </div>
+
+          <div class="phs">
+            <img src="Images/phase4_2.jpg" alt="تواصل مع الآباء" onerror="this.style.display='none'">
+            <div class="ph-label"
+              style="position: absolute; bottom: 0; background: rgba(0,0,0,0.65); width: 100%; padding: 6px 0; text-align: center; color: white;">
+              تواصل مع أولياء الأمور</div>
+          </div>
+
+          <div class="phs">
+            <img src="Images/phase4_3.jpg" alt="لوحة الإعلانات" onerror="this.style.display='none'">
+            <div class="ph-label"
+              style="position: absolute; bottom: 0; background: rgba(0,0,0,0.65); width: 100%; padding: 6px 0; text-align: center; color: white;">
+              تحديث لوحات التواصل</div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="sv" id="stage-5">
+        <button class="back"
+          onclick="document.getElementById('stage-5').classList.remove('open'); document.getElementById('tr-r').classList.add('open');">←
+          العودة للمراحل</button>
+
+        <div class="sst" style="font-size: 20px;">🏫 المرحلة الخامسة: التداريب بالمركز الجهوي لمهن التربية والتكوين
+        </div>
+
+        <div class="sst">📄 التقرير والملحقات</div>
+        <div class="cgrid">
+
+          <div class="dc" style="border-color: var(--navy); border-width: 2px;">
+            <div class="dci">🚀</div>
+            <h3>التقرير التركيبي للمرحلة الخامسة</h3>
+            <p>تقرير حول منهجية إعداد مشروع المؤسسة المندمج، تشخيص الوضعية، وتحديد الأولويات.</p>
+            <div class="dc-foot">
+              <a href="https://drive.google.com/file/d/141nHi9Qyf5VdN7MZdv7v2rQrhKDEMB78/view?usp=sharing"
+                target="_blank" class="bview">📂 عرض</a>
+            </div>
+          </div>
+
+          <div class="dc">
+            <div class="dci">📝</div>
+            <h3>وثيقة مشروع المؤسسة المندمج</h3>
+            <p>نسخة من مشروع المؤسسة المعتمد والمتضمن للبطاقات التقنية للأنشطة المبرمجة.</p>
+            <div class="dc-foot">
+              <a href="https://drive.google.com/file/d/141nHi9Qyf5VdN7MZdv7v2rQrhKDEMB78/view?usp=sharing"
+                target="_blank" class="bview">📂 عرض</a>
+            </div>
+          </div>
+
+          <div class="dc">
+            <div class="dci">📊</div>
+            <h3>لوحات القيادة والتتبع</h3>
+            <p>توثيق لمؤشرات الإنجاز وأدوات تتبع وتنفيذ أنشطة المشروع المندمج.</p>
+            <div class="dc-foot">
+              <a href="https://drive.google.com/file/d/141nHi9Qyf5VdN7MZdv7v2rQrhKDEMB78/view?usp=sharing"
+                target="_blank" class="bview">📂 عرض</a>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="sst" style="margin-top: 32px;">📸 صور توثيقية للمرحلة</div>
+        <div class="photog">
+
+          <div class="phs">
+            <img src="Images/phase5_1.jpg" alt="ورشة عمل المشروع" onerror="this.style.display='none'">
+            <div class="ph-label"
+              style="position: absolute; bottom: 0; background: rgba(0,0,0,0.65); width: 100%; padding: 6px 0; text-align: center; color: white;">
+              ورشة إعداد المشروع</div>
+          </div>
+
+          <div class="phs">
+            <img src="images/phase5_2.jpg" alt="اجتماع فريق القيادة" onerror="this.style.display='none'">
+            <div class="ph-label"
+              style="position: absolute; bottom: 0; background: rgba(0,0,0,0.65); width: 100%; padding: 6px 0; text-align: center; color: white;">
+              فريق قيادة المشروع</div>
+          </div>
+
+          <div class="phs">
+            <img src="images/phase5_3.jpg" alt="نشاط مبرمج" onerror="this.style.display='none'">
+            <div class="ph-label"
+              style="position: absolute; bottom: 0; background: rgba(0,0,0,0.65); width: 100%; padding: 6px 0; text-align: center; color: white;">
+              تتبع نشاط ميداني</div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+
+    <!-- CREATIONS -->
+    <div class="pg" id="pg-creations">
+      <div class="sechdr">
+        <div class="shico">✨</div>
+        <div>
+          <h2>الإبداعات</h2>
+          <p>الإنجازات الإبداعية خلال مسار التكوين</p>
+        </div>
+      </div>
+      <div id="cm">
+        <div class="sigrid">
+          <div class="sic" onclick="ssv('creations','cr-m')"><span class="sii">📚</span>
+            <h3>المجزوءات</h3>
+          </div>
+          <div class="sic" onclick="ssv('creations','cr-f')"><span class="sii">🏫</span>
+            <h3>التداريب الميدانية</h3>
+          </div>
+          <div class="sic" onclick="ssv('creations','cr-s')"><span class="sii">🎓</span>
+            <h3>التكوين الذاتي</h3>
+          </div>
+        </div>
+      </div>
+      <div class="sv" id="cr-m">
+        <button class="back" onclick="hsv('cr-m','cm')">← العودة</button>
+        <div class="sst">📚 إبداعات المجزوءات</div>
+        <div class="cgrid" id="g-crm">
+          <div class="dc">
+            <div class="dci">🎨</div>
+            <h3>مطوية حول التدبير التربوي</h3>
+            <p>إبداع خاص بتلخيص مجزوءة التدبير التربوي على شكل مطوية تفاعلية.</p>
+            <div class="dc-foot">
+              <a href="https://drive.google.com/file/d/141nHi9Qyf5VdN7MZdv7v2rQrhKDEMB78/view?usp=sharing"
+                target="_blank" class="bview">📂 عرض</a>
+            </div>
+          </div>
+          <div class="dc">
+            <div class="dci">🎨</div>
+            <h3>مطوية حول التدبير التربوي</h3>
+            <p>إبداع خاص بتلخيص مجزوءة التدبير التربوي على شكل مطوية تفاعلية.</p>
+            <div class="dc-foot">
+              <a href="https://drive.google.com/file/d/141nHi9Qyf5VdN7MZdv7v2rQrhKDEMB78/view?usp=sharing"
+                target="_blank" class="bview">📂 عرض</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="sv" id="cr-f">
+        <button class="back" onclick="hsv('cr-f','cm')">← العودة</button>
+        <div class="sst">🏫 إبداعات التداريب الميدانية</div>
+        <div class="cgrid" id="g-crf">
+          <div class="dc">
+            <div class="dci">🎨</div>
+            <h3>مطوية حول التدبير التربوي</h3>
+            <p>إبداع خاص بتلخيص مجزوءة التدبير التربوي على شكل مطوية تفاعلية.</p>
+            <div class="dc-foot">
+              <a href="https://drive.google.com/file/d/141nHi9Qyf5VdN7MZdv7v2rQrhKDEMB78/view?usp=sharing"
+                target="_blank" class="bview">📂 عرض</a>
+            </div>
+          </div>
+          <div class="dc">
+            <div class="dci">🎨</div>
+            <h3>مطوية حول التدبير التربوي</h3>
+            <p>إبداع خاص بتلخيص مجزوءة التدبير التربوي على شكل مطوية تفاعلية.</p>
+            <div class="dc-foot">
+              <a href="https://drive.google.com/file/d/141nHi9Qyf5VdN7MZdv7v2rQrhKDEMB78/view?usp=sharing"
+                target="_blank" class="bview">📂 عرض</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="sv" id="cr-s">
+        <button class="back" onclick="hsv('cr-s','cm')">← العودة</button>
+        <div class="sst">🎓 إبداعات التكوين الذاتي</div>
+        <div class="cgrid" id="g-crs">
+          <div class="dc">
+            <div class="dci">🎨</div>
+            <h3>مطوية حول التدبير التربوي</h3>
+            <p>إبداع خاص بتلخيص مجزوءة التدبير التربوي على شكل مطوية تفاعلية.</p>
+            <div class="dc-foot">
+              <a href="https://drive.google.com/file/d/141nHi9Qyf5VdN7MZdv7v2rQrhKDEMB78/view?usp=sharing"
+                target="_blank" class="bview">📂 عرض</a>
+            </div>
+          </div>
+          <div class="dc">
+            <div class="dci">🎨</div>
+            <h3>مطوية حول التدبير التربوي</h3>
+            <p>إبداع خاص بتلخيص مجزوءة التدبير التربوي على شكل مطوية تفاعلية.</p>
+            <div class="dc-foot">
+              <a href="https://drive.google.com/file/d/141nHi9Qyf5VdN7MZdv7v2rQrhKDEMB78/view?usp=sharing"
+                target="_blank" class="bview">📂 عرض</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ MODULES & SLIDES & EXAMENS DROPDOWN PAGE ══ -->
+    <div class="pg" id="pg-modules">
+      <div class="sechdr">
+        <div class="shico">📑</div>
+        <div>
+          <h2>المجزوءات والعروض</h2>
+        </div>
+      </div>
+
+      <!-- TABS -->
+      <div class="dd-tabs">
+        <div class="dd-tab modules active" onclick="switchDdTab('modules')">
+          📚 المجزوءات الرسمية </div>
+        <div class="dd-tab slides" onclick="switchDdTab('slides')">
+          🖥️ العروض </div>
+        <div class="dd-tab examens" onclick="switchDdTab('examens')">
+          🖥️ امتحانات </div>
+      </div>
+
+
+      <!-- PANEL: MODULES -->
+      <div class="dd-panel active" id="panel-modules">
+        <div class="dd-search">
+          <span class="ds-icon">🔍</span>
+          <input type="text" placeholder="ابحث في المجزوءات..." oninput="filterDd(this,'modules')">
+        </div>
+
+        <div id="modules-list">
+
+          <!-- مجموعة 1 -->
+          <div class="dd-group" id="dd-g1">
+
+            <div class="dd-group-header" onclick="toggleDdGroup('dd-g1')">
+              <div class="dgh-left">
+                <div class="dgh-icon">📘</div>
+                <div>
+                  <h3>المجموعة الأولى</h3>
+                </div>
+              </div>
+              <div class="dgh-right">
+                <span class="dgh-badge"> خمس مجزوءات</span>
+                <span class="dgh-arrow">▼</span>
+              </div>
+            </div>
+            <div class="dd-items">
+              <div class="dd-item" data-search="التدبير المادي والمالي لمؤسسة تعليمية مجموعة أولى">
+                <div class="dd-item-info">
+                  <div class="dd-item-title">مجزوءة التدبير المادي والمالي لمؤسسة تعليمية</div>
+                </div>
+                <div class="dd-item-actions">
+                  <a href="https://drive.google.com/file/d/141nHi9Qyf5VdN7MZdv7v2rQrhKDEMB78/view?usp=sharing"
+                    target="_blank" class="bview">📂 عرض</a>
+                </div>
+              </div>
+
+              <div class="dd-item" data-search="التأطيرالقانوني لتدبير الإدارةالتربوية مجموعة أولى">
+                <div class="dd-item-info">
+                  <div class="dd-item-title">مجزوءةالتأطير القانوني لتدبير الإدارةالتربوية </div>
+                  <div class="dd-item-meta"> </div>
+                </div>
+                <div class="dd-item-actions">
+                  <button class="ddi-btn-view"
+                    onclick="openPdf('مجزوءة التأطير  القانوني  لتدبير  الإدارة التربوية ','Modules/m1.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+
+              <div class="dd-item" data-search="مكونات ومهام الإدارة التربوية  مجموعة أولى">
+                <div class="dd-item-info">
+                  <div class="dd-item-title">مجزوءة مكونات ومهام الإدارة التربوية</div>
+                  <div class="dd-item-meta"> </div>
+                </div>
+                <div class="dd-item-actions">
+                  <button class="ddi-btn-view"
+                    onclick="openPdf('مجزوءة مكونات ومهام الإدارة التربوية ','Modules/m2.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+
+              <div class="dd-item" data-search="أخلاقيات مهن الإدارة التربوية  مجموعة أولى">
+                <div class="dd-item-info">
+                  <div class="dd-item-title">مجزوءة أخلاقيات مهن الإدارة التربوية </div>
+                  <div class="dd-item-meta"> </div>
+                </div>
+                <div class="dd-item-actions">
+                  <button class="ddi-btn-view"
+                    onclick="openPdf('مجزوءة أخلاقيات مهن الإدارة التربوية  ','Modules/m12.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+
+              <div class="dd-item" data-search="تكنولوجيا المعلومات والاتصال  مجموعة أولى">
+                <div class="dd-item-info">
+                  <div class="dd-item-title">مجزوءة تكنولوجيا المعلومات والاتصال </div>
+                  <div class="dd-item-meta"> </div>
+                </div>
+                <div class="dd-item-actions">
+                  <button class="ddi-btn-view"
+                    onclick="openPdf('مجزوءة تكنولوجيا المعلومات والاتصال ','Modules/m7.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- مجموعة 2 -->
+          <div class="dd-group" id="dd-g2">
+
+            <div class="dd-group-header" onclick="toggleDdGroup('dd-g2')">
+              <div class="dgh-left">
+                <div class="dgh-icon">📗</div>
+                <div>
+                  <h3>المجموعة الثانية</h3>
+                </div>
+              </div>
+              <div class="dgh-right">
+                <span class="dgh-badge">خمس مجزوءات</span>
+                <span class="dgh-arrow">▼</span>
+              </div>
+            </div>
+
+            <div class="dd-items">
+              <div class="dd-item" data-search="التدبير البيداغوجي للنجاح المدرسي  مجموعة ثانية">
+                <div class="dd-item-info">
+                  <div class="dd-item-title">مجزوءة التدبير البيداغوجي للنجاح المدرسي</div>
+                  <div class="dd-item-meta"></div>
+                </div>
+                <div class="dd-item-actions">
+                  <button class="ddi-btn-view"
+                    onclick="openPdf('مجزوءة التدبير البيداغوجي للنجاح المدرسي ','Modules/m3.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+
+              <div class="dd-item" data-search="تدبير التربية الدامجة  مجموعة ثانية">
+                <div class="dd-item-info">
+                  <div class="dd-item-title">مجزوءة التربية الدامجة </div>
+                  <div class="dd-item-meta"> </div>
+                </div>
+                <div class="dd-item-actions">
+                  <button class="ddi-btn-view" onclick="openPdf('مجزوءة التربية الدامجة  ','Modules/m8.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+
+              <div class="dd-item" data-search="تدبير التوجيه المدرسي  مجموعة ثانية">
+                <div class="dd-item-info">
+                  <div class="dd-item-title">مجزوءة التوجيه المدرسي </div>
+                  <div class="dd-item-meta"> </div>
+                </div>
+                <div class="dd-item-actions">
+                  <button class="ddi-btn-view" onclick="openPdf('مجزوءة التوجيه المدرسي  ','Modules/m6.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+
+              <div class="dd-item" data-search="تدبير الحياة المدرسية والأنشطة الموازية  مجموعة ثانية">
+                <div class="dd-item-info">
+                  <div class="dd-item-title">مجزوءة الحياة المدرسية والأنشطة الموازية </div>
+                  <div class="dd-item-meta"> </div>
+                </div>
+                <div class="dd-item-actions">
+                  <button class="ddi-btn-view"
+                    onclick="openPdf('مجزوءة الحياة المدرسية والأنشطة الموازية  ','Modules/m4.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+
+              <div class="dd-item" data-search="تدبير الشراكة والتعاون  مجموعة ثانية">
+                <div class="dd-item-info">
+                  <div class="dd-item-title">مجزوءة الشراكة والتعاون </div>
+                  <div class="dd-item-meta"> </div>
+                </div>
+                <div class="dd-item-actions">
+                  <button class="ddi-btn-view" onclick="openPdf('مجزوءة الشراكة والتعاون  ','Modules/m14.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- مجموعة 3 -->
+          <div class="dd-group" id="dd-g3">
+
+            <div class="dd-group-header" onclick="toggleDdGroup('dd-g3')">
+              <div class="dgh-left">
+                <div class="dgh-icon">📙</div>
+                <div>
+                  <h3>المجموعة الثالثة</h3>
+                </div>
+              </div>
+              <div class="dgh-right">
+                <span class="dgh-badge"> ست مجزوءات</span>
+                <span class="dgh-arrow">▼</span>
+              </div>
+            </div>
+
+            <div class="dd-items">
+              <div class="dd-item" data-search="مشروع المؤسسة المندمج مجموعة ثالثة">
+                <div class="dd-item-info">
+                  <div class="dd-item-title">مجزوءة مشروع المؤسسة المندمج</div>
+                  <div class="dd-item-meta"> </div>
+                </div>
+                <div class="dd-item-actions">
+                  <button class="ddi-btn-view" onclick="openPdf('مجزوءة مشروع المؤسسة المندمج','Modules/m10.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+
+              <div class="dd-item" data-search="القيادة التغيير مجموعة ثالثة">
+                <div class="dd-item-info">
+                  <div class="dd-item-title">مجزوءة القيادة التغيير</div>
+                  <div class="dd-item-meta"> </div>
+                </div>
+                <div class="dd-item-actions">
+                  <button class="ddi-btn-view" onclick="openPdf('مجزوءة القيادة التغيير','Modules/m16.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+
+              <div class="dd-item" data-search="التقويم المؤسساتي مجموعة ثالثة">
+                <div class="dd-item-info">
+                  <div class="dd-item-title">مجزوءة التقويم المؤسساتي</div>
+                  <div class="dd-item-meta"> </div>
+                </div>
+                <div class="dd-item-actions">
+                  <button class="ddi-btn-view" onclick="openPdf('مجزوءة التقويم المؤسساتي','Modules/m18.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+
+              <div class="dd-item" data-search="سيكوسوسيولوجيا تدبير مؤسسة تعليمية مجموعة ثالثة">
+                <div class="dd-item-info">
+                  <div class="dd-item-title">مجزوءة سيكوسوسيولوجيا تدبير مؤسسة تعليمية</div>
+                  <div class="dd-item-meta"> </div>
+                </div>
+                <div class="dd-item-actions">
+                  <button class="ddi-btn-view"
+                    onclick="openPdf('مجزوءة سيكوسوسيولوجيا تدبير مؤسسة تعليمية','Modules/m13.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+
+              <div class="dd-item" data-search="التوثيق والأرشيف التغيير مجموعة ثالثة">
+                <div class="dd-item-info">
+                  <div class="dd-item-title">مجزوءة التوثيق والأرشيف</div>
+                  <div class="dd-item-meta"> </div>
+                </div>
+                <div class="dd-item-actions">
+                  <button class="ddi-btn-view" onclick="openPdf('مجزوءة التوثيق والأرشيف','Modules/m19.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+
+              <div class="dd-item" data-search="تدبير الجمعيات المدرسية مجموعة ثالثة">
+                <div class="dd-item-info">
+                  <div class="dd-item-title">مجزوءة تدبير الجمعيات المدرسية</div>
+                  <div class="dd-item-meta"> </div>
+                </div>
+                <div class="dd-item-actions">
+                  <button class="ddi-btn-view" onclick="openPdf('مجزوءة تدبير الجمعيات المدرسية','Modules/m22.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- مجموعة 4 -->
+          <div class="dd-group" id="dd-g4">
+
+            <div class="dd-group-header" onclick="toggleDdGroup('dd-g4')">
+              <div class="dgh-left">
+                <div class="dgh-icon">📕</div>
+                <div>
+                  <h3>المجموعة الرابعة</h3>
+                </div>
+              </div>
+              <div class="dgh-right">
+                <span class="dgh-badge"> ست مجزوءات</span>
+                <span class="dgh-arrow">▼</span>
+              </div>
+            </div>
+
+            <div class="dd-items">
+              <div class="dd-item" data-search="الإحصاء والتخطيط التربوي مجموعة رابعة">
+                <div class="dd-item-info">
+                  <div class="dd-item-title">مجزوءة الإحصاء والتخطيط التربوي</div>
+                  <div class="dd-item-meta"> </div>
+                </div>
+                <div class="dd-item-actions">
+                  <button class="ddi-btn-view" onclick="openPdf('مجزوءة الإحصاء والتخطيط التربوي','Modules/m15.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+
+              <div class="dd-item" data-search="التواصل والتنشيط بالوسط المدرسي مجموعة رابعة">
+                <div class="dd-item-info">
+                  <div class="dd-item-title">مجزوءة التواصل والتنشيط بالوسط المدرسي</div>
+                  <div class="dd-item-meta"> </div>
+                </div>
+                <div class="dd-item-actions">
+                  <button class="ddi-btn-view"
+                    onclick="openPdf('مجزوءة التواصل والتنشيط بالوسط المدرسي','Modules/m11.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+
+              <div class="dd-item" data-search="تدبير الموارد البشرية بالمؤسسات التعليمية مجموعة رابعة">
+                <div class="dd-item-info">
+                  <div class="dd-item-title">مجزوءة تدبير الموارد البشرية بالمؤسسات التعليمية</div>
+                  <div class="dd-item-meta"> </div>
+                </div>
+                <div class="dd-item-actions">
+                  <button class="ddi-btn-view"
+                    onclick="openPdf('مجزوءة تدبير الموارد البشرية بالمؤسسات التعليمية','Modules/m5.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+
+              <div class="dd-item" data-search="منظومة إعلام التربية  مجموعة رابعة">
+                <div class="dd-item-info">
+                  <div class="dd-item-title">مجزوءة منظومة إعلام التربية</div>
+                  <div class="dd-item-meta"> </div>
+                </div>
+                <div class="dd-item-actions">
+                  <button class="ddi-btn-view" onclick="openPdf('مجزوءة منظومة إعلام التربية ','Modules/m17.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+
+              <div class="dd-item" data-search="تحليل الممارسة المهنية  مجموعة رابعة">
+                <div class="dd-item-info">
+                  <div class="dd-item-title">مجزوءة تحليل الممارسة المهنية </div>
+                  <div class="dd-item-meta"> </div>
+                </div>
+                <div class="dd-item-actions">
+                  <button class="ddi-btn-view"
+                    onclick="openPdf('مجزوءة تحليل الممارسة المهنية   ','Modules/m20.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+
+              <div class="dd-item" data-search="منهجية البحث التدخلي ومقاربة المشروع  مجموعة رابعة">
+                <div class="dd-item-info">
+                  <div class="dd-item-title">مجزوءة منهجية البحث التدخلي ومقاربة المشروع </div>
+                  <div class="dd-item-meta"> </div>
+                </div>
+                <div class="dd-item-actions">
+                  <button class="ddi-btn-view"
+                    onclick="openPdf('مجزوءة منهجية البحث التدخلي ومقاربة المشروع','Modules/m21.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- PANEL: SLIDES -->
+      <div class="dd-panel" id="panel-slides">
+        <div class="dd-search">
+          <span class="ds-icon">🔍</span>
+          <input type="text" placeholder="ابحث في العروض..." oninput="filterDd(this,'slides')">
+        </div>
+        <div id="slides-list">
+
+          <!-- مجموعة عروض مجزوءة التأطير القانوني لتدبير الإدارة التربوية -->
+          <div class="dd-group" id="dd-s1">
+
+            <div class="dd-group-header" onclick="toggleDdGroup('dd-s1')">
+              <div class="dgh-left">
+                <div class="dgh-icon">🖥️</div>
+                <div>
+                  <h3>عروض التأطير القانوني لتدبير الإدارة التربوية </h3>
+                </div>
+              </div>
+              <div class="dgh-right">
+                <span class="dgh-arrow">▼</span>
+              </div>
+            </div>
+
+            <div class="dd-items">
+              <div class="slide-item" data-search="عرض الرخص بوربوينت">
+                <div class="slide-thumb">📊</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض الرخص</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view" onclick="openPdf('عرض الرخص','Presentations/conges_m1.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+
+              <div class="slide-item" data-search="عرض طلب شهادة المغادرة بوربوينت">
+                <div class="slide-thumb">⚖️</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض طلب شهادة المغادرة</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view"
+                    onclick="openPdf('عرض طلب شهادة المغادرة','Presentations/certificat_m1.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+
+              <div class="slide-item" data-search="عرض مشروع المؤسسة بوربوينت">
+                <div class="slide-thumb">🚀</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض مشروع المؤسسة المندمج</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view" onclick="openPdf('عرض مشروع المؤسسة','documents/slides/slide_3.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+
+              <div class="slide-item" data-search="عرض التخطيط التتبع التقييم بوربوينت">
+                <div class="slide-thumb">📈</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض التخطيط والتتبع والتقييم</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view"
+                    onclick="openPdf('عرض التخطيط والتقييم','documents/slides/slide_4.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+
+              <div class="slide-item" data-search="عرض التخطيط التتبع التقييم بوربوينت">
+                <div class="slide-thumb">📈</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض التخطيط والتتبع والتقييم</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view"
+                    onclick="openPdf('عرض التخطيط والتقييم','documents/slides/slide_4.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- مجموعة عروض مكونات ومها الإدارة التربوية -->
+          <div class="dd-group" id="dd-s2">
+
+            <div class="dd-group-header" onclick="toggleDdGroup('dd-s2')">
+              <div class="dgh-left">
+                <div class="dgh-icon">🖥️</div>
+                <div>
+                  <h3>عروض مكونات ومهام الإدارة التربوية </h3>
+                </div>
+              </div>
+              <div class="dgh-right">
+                <span class="dgh-arrow">▼</span>
+              </div>
+            </div>
+
+            <div class="dd-items">
+              <div class="slide-item" data-search="عرض مهام المدير بوربوينت">
+                <div class="slide-thumb">📊</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض مهام المدير</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view" onclick="openPdf('عرض مهام المدير','Presentations/directeur_m2.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+
+              <div class="slide-item" data-search="عرض مهام مسير المصالح المادية والمالية بوربوينت">
+                <div class="slide-thumb">⚖️</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض مهام مسير المصالح المادية والمالية</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view"
+                    onclick="openPdf('عرض مهام مسير المصالح المادية والمالية','Presentations/gestionnaire_m2.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+
+              <div class="slide-item" data-search="عرض وضعية مهنية حول مهام الناظر بوربوينت">
+                <div class="slide-thumb">🚀</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض وضعية مهنية حول مهام الناظر</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view"
+                    onclick="openPdf('عرض وضعية مهنية حول مهام الناظر','Presentations/situation1_m2.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+
+              <div class="slide-item" data-search="عرض التخطيط التتبع التقييم بوربوينت">
+                <div class="slide-thumb">📈</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض التخطيط والتتبع والتقييم</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view"
+                    onclick="openPdf('عرض التخطيط والتقييم','documents/slides/slide_4.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+
+              <div class="slide-item" data-search="عرض التخطيط التتبع التقييم بوربوينت">
+                <div class="slide-thumb">📈</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض التخطيط والتتبع والتقييم</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view"
+                    onclick="openPdf('عرض التخطيط والتقييم','documents/slides/slide_4.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- مجموعة عروض التكوين -->
+          <div class="dd-group" id="dd-s3">
+
+            <div class="dd-group-header" onclick="toggleDdGroup('dd-s3')">
+              <div class="dgh-left">
+                <div class="dgh-icon">🖥️</div>
+                <div>
+                  <h3>عروض التدبير البيداغوجي للنجاح المدرسي </h3>
+                </div>
+              </div>
+              <div class="dgh-right">
+                <span class="dgh-arrow">▼</span>
+              </div>
+            </div>
+
+            <div class="dd-items">
+              <div class="slide-item" data-search="عرض التدبير التربوي بوربوينت">
+                <div class="slide-thumb">📊</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض مجزوءة التدبير التربوي</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view"
+                    onclick="openPdf('عرض التدبير التربوي','documents/slides/slide_1.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+
+              <div class="slide-item" data-search="عرض التشريع المدرسي بوربوينت">
+                <div class="slide-thumb">⚖️</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض مجزوءة التشريع المدرسي</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view"
+                    onclick="openPdf('عرض التشريع المدرسي','documents/slides/slide_2.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+
+              <div class="slide-item" data-search="عرض مشروع المؤسسة بوربوينت">
+                <div class="slide-thumb">🚀</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض مشروع المؤسسة المندمج</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view" onclick="openPdf('عرض مشروع المؤسسة','documents/slides/slide_3.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+
+              <div class="slide-item" data-search="عرض التخطيط التتبع التقييم بوربوينت">
+                <div class="slide-thumb">📈</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض التخطيط والتتبع والتقييم</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view"
+                    onclick="openPdf('عرض التخطيط والتقييم','documents/slides/slide_4.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+
+              <div class="slide-item" data-search="عرض التخطيط التتبع التقييم بوربوينت">
+                <div class="slide-thumb">📈</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض التخطيط والتتبع والتقييم</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view"
+                    onclick="openPdf('عرض التخطيط والتقييم','documents/slides/slide_4.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- مجموعة عروض التكوين -->
+          <div class="dd-group" id="dd-s4">
+
+            <div class="dd-group-header" onclick="toggleDdGroup('dd-s4')">
+              <div class="dgh-left">
+                <div class="dgh-icon">🖥️</div>
+                <div>
+                  <h3>عروض الحياة المدرسية والأنشطة الموازية </h3>
+                </div>
+              </div>
+              <div class="dgh-right">
+                <span class="dgh-arrow">▼</span>
+              </div>
+            </div>
+
+            <div class="dd-items">
+              <div class="slide-item" data-search="عرض التدبير التربوي بوربوينت">
+                <div class="slide-thumb">📊</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض مجزوءة التدبير التربوي</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view"
+                    onclick="openPdf('عرض التدبير التربوي','documents/slides/slide_1.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+
+              <div class="slide-item" data-search="عرض التشريع المدرسي بوربوينت">
+                <div class="slide-thumb">⚖️</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض مجزوءة التشريع المدرسي</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view"
+                    onclick="openPdf('عرض التشريع المدرسي','documents/slides/slide_2.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+
+              <div class="slide-item" data-search="عرض مشروع المؤسسة بوربوينت">
+                <div class="slide-thumb">🚀</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض مشروع المؤسسة المندمج</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view" onclick="openPdf('عرض مشروع المؤسسة','documents/slides/slide_3.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+
+              <div class="slide-item" data-search="عرض التخطيط التتبع التقييم بوربوينت">
+                <div class="slide-thumb">📈</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض التخطيط والتتبع والتقييم</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view"
+                    onclick="openPdf('عرض التخطيط والتقييم','documents/slides/slide_4.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+
+              <div class="slide-item" data-search="عرض التخطيط التتبع التقييم بوربوينت">
+                <div class="slide-thumb">📈</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض التخطيط والتتبع والتقييم</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view"
+                    onclick="openPdf('عرض التخطيط والتقييم','documents/slides/slide_4.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- مجموعة عروض التكوين -->
+          <div class="dd-group" id="dd-s5">
+
+            <div class="dd-group-header" onclick="toggleDdGroup('dd-s5')">
+              <div class="dgh-left">
+                <div class="dgh-icon">🖥️</div>
+                <div>
+                  <h3>عروض تدبير الموارد البشرية بالمؤسسات التعليمية </h3>
+                </div>
+              </div>
+              <div class="dgh-right">
+                <span class="dgh-arrow">▼</span>
+              </div>
+            </div>
+
+            <div class="dd-items">
+              <div class="slide-item" data-search="عرض التدبير التربوي بوربوينت">
+                <div class="slide-thumb">📊</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض مجزوءة التدبير التربوي</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view"
+                    onclick="openPdf('عرض التدبير التربوي','documents/slides/slide_1.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+
+              <div class="slide-item" data-search="عرض التشريع المدرسي بوربوينت">
+                <div class="slide-thumb">⚖️</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض مجزوءة التشريع المدرسي</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view"
+                    onclick="openPdf('عرض التشريع المدرسي','documents/slides/slide_2.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+
+              <div class="slide-item" data-search="عرض مشروع المؤسسة بوربوينت">
+                <div class="slide-thumb">🚀</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض مشروع المؤسسة المندمج</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view" onclick="openPdf('عرض مشروع المؤسسة','documents/slides/slide_3.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+
+              <div class="slide-item" data-search="عرض التخطيط التتبع التقييم بوربوينت">
+                <div class="slide-thumb">📈</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض التخطيط والتتبع والتقييم</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view"
+                    onclick="openPdf('عرض التخطيط والتقييم','documents/slides/slide_4.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+
+              <div class="slide-item" data-search="عرض التخطيط التتبع التقييم بوربوينت">
+                <div class="slide-thumb">📈</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض التخطيط والتتبع والتقييم</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view"
+                    onclick="openPdf('عرض التخطيط والتقييم','documents/slides/slide_4.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- مجموعة عروض التكوين -->
+          <div class="dd-group" id="dd-s6">
+
+            <div class="dd-group-header" onclick="toggleDdGroup('dd-s6')">
+              <div class="dgh-left">
+                <div class="dgh-icon">🖥️</div>
+                <div>
+                  <h3>عروض التوجيه المدرسي </h3>
+                </div>
+              </div>
+              <div class="dgh-right">
+                <span class="dgh-arrow">▼</span>
+              </div>
+            </div>
+
+            <div class="dd-items">
+              <div class="slide-item" data-search="عرض التدبير التربوي بوربوينت">
+                <div class="slide-thumb">📊</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض مجزوءة التدبير التربوي</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view"
+                    onclick="openPdf('عرض التدبير التربوي','documents/slides/slide_1.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+
+              <div class="slide-item" data-search="عرض التشريع المدرسي بوربوينت">
+                <div class="slide-thumb">⚖️</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض مجزوءة التشريع المدرسي</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view"
+                    onclick="openPdf('عرض التشريع المدرسي','documents/slides/slide_2.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+
+              <div class="slide-item" data-search="عرض مشروع المؤسسة بوربوينت">
+                <div class="slide-thumb">🚀</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض مشروع المؤسسة المندمج</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view" onclick="openPdf('عرض مشروع المؤسسة','documents/slides/slide_3.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+
+              <div class="slide-item" data-search="عرض التخطيط التتبع التقييم بوربوينت">
+                <div class="slide-thumb">📈</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض التخطيط والتتبع والتقييم</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view"
+                    onclick="openPdf('عرض التخطيط والتقييم','documents/slides/slide_4.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+
+              <div class="slide-item" data-search="عرض التخطيط التتبع التقييم بوربوينت">
+                <div class="slide-thumb">📈</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض التخطيط والتتبع والتقييم</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view"
+                    onclick="openPdf('عرض التخطيط والتقييم','documents/slides/slide_4.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- مجموعة عروض التكوين -->
+          <div class="dd-group" id="dd-s7">
+
+            <div class="dd-group-header" onclick="toggleDdGroup('dd-s7')">
+              <div class="dgh-left">
+                <div class="dgh-icon">🖥️</div>
+                <div>
+                  <h3>عروض تكنولوجيا المعلومات والاتصال </h3>
+                </div>
+              </div>
+              <div class="dgh-right">
+                <span class="dgh-arrow">▼</span>
+              </div>
+            </div>
+
+            <div class="dd-items">
+              <div class="slide-item" data-search="عرض التدبير التربوي بوربوينت">
+                <div class="slide-thumb">📊</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض مجزوءة التدبير التربوي</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view"
+                    onclick="openPdf('عرض التدبير التربوي','documents/slides/slide_1.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+
+              <div class="slide-item" data-search="عرض التشريع المدرسي بوربوينت">
+                <div class="slide-thumb">⚖️</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض مجزوءة التشريع المدرسي</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view"
+                    onclick="openPdf('عرض التشريع المدرسي','documents/slides/slide_2.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+
+              <div class="slide-item" data-search="عرض مشروع المؤسسة بوربوينت">
+                <div class="slide-thumb">🚀</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض مشروع المؤسسة المندمج</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view" onclick="openPdf('عرض مشروع المؤسسة','documents/slides/slide_3.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+
+              <div class="slide-item" data-search="عرض التخطيط التتبع التقييم بوربوينت">
+                <div class="slide-thumb">📈</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض التخطيط والتتبع والتقييم</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view"
+                    onclick="openPdf('عرض التخطيط والتقييم','documents/slides/slide_4.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+
+              <div class="slide-item" data-search="عرض التخطيط التتبع التقييم بوربوينت">
+                <div class="slide-thumb">📈</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض التخطيط والتتبع والتقييم</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view"
+                    onclick="openPdf('عرض التخطيط والتقييم','documents/slides/slide_4.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- مجموعة عروض التكوين -->
+          <div class="dd-group" id="dd-s8">
+
+            <div class="dd-group-header" onclick="toggleDdGroup('dd-s8')">
+              <div class="dgh-left">
+                <div class="dgh-icon">🖥️</div>
+                <div>
+                  <h3>عروض التربية الدامجة </h3>
+                </div>
+              </div>
+              <div class="dgh-right">
+                <span class="dgh-arrow">▼</span>
+              </div>
+            </div>
+
+            <div class="dd-items">
+              <div class="slide-item" data-search="عرض التدبير التربوي بوربوينت">
+                <div class="slide-thumb">📊</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض مجزوءة التدبير التربوي</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view"
+                    onclick="openPdf('عرض التدبير التربوي','documents/slides/slide_1.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+
+              <div class="slide-item" data-search="عرض التشريع المدرسي بوربوينت">
+                <div class="slide-thumb">⚖️</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض مجزوءة التشريع المدرسي</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view"
+                    onclick="openPdf('عرض التشريع المدرسي','documents/slides/slide_2.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+
+              <div class="slide-item" data-search="عرض مشروع المؤسسة بوربوينت">
+                <div class="slide-thumb">🚀</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض مشروع المؤسسة المندمج</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view" onclick="openPdf('عرض مشروع المؤسسة','documents/slides/slide_3.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+
+              <div class="slide-item" data-search="عرض التخطيط التتبع التقييم بوربوينت">
+                <div class="slide-thumb">📈</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض التخطيط والتتبع والتقييم</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view"
+                    onclick="openPdf('عرض التخطيط والتقييم','documents/slides/slide_4.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+
+              <div class="slide-item" data-search="عرض التخطيط التتبع التقييم بوربوينت">
+                <div class="slide-thumb">📈</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض التخطيط والتتبع والتقييم</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view"
+                    onclick="openPdf('عرض التخطيط والتقييم','documents/slides/slide_4.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- مجموعة عروض التكوين -->
+          <div class="dd-group" id="dd-s9">
+
+            <div class="dd-group-header" onclick="toggleDdGroup('dd-s9')">
+              <div class="dgh-left">
+                <div class="dgh-icon">🖥️</div>
+                <div>
+                  <h3>عروض التدبير المادي والمالي لمؤسسة تعليمية </h3>
+                </div>
+              </div>
+              <div class="dgh-right">
+                <span class="dgh-arrow">▼</span>
+              </div>
+            </div>
+
+            <div class="dd-items">
+              <div class="slide-item" data-search="عرض التدبير التربوي بوربوينت">
+                <div class="slide-thumb">📊</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض مجزوءة التدبير التربوي</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view"
+                    onclick="openPdf('عرض التدبير التربوي','documents/slides/slide_1.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+
+              <div class="slide-item" data-search="عرض التشريع المدرسي بوربوينت">
+                <div class="slide-thumb">⚖️</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض مجزوءة التشريع المدرسي</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view"
+                    onclick="openPdf('عرض التشريع المدرسي','documents/slides/slide_2.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+
+              <div class="slide-item" data-search="عرض مشروع المؤسسة بوربوينت">
+                <div class="slide-thumb">🚀</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض مشروع المؤسسة المندمج</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view" onclick="openPdf('عرض مشروع المؤسسة','documents/slides/slide_3.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+
+              <div class="slide-item" data-search="عرض التخطيط التتبع التقييم بوربوينت">
+                <div class="slide-thumb">📈</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض التخطيط والتتبع والتقييم</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view"
+                    onclick="openPdf('عرض التخطيط والتقييم','documents/slides/slide_4.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+
+              <div class="slide-item" data-search="عرض التخطيط التتبع التقييم بوربوينت">
+                <div class="slide-thumb">📈</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض التخطيط والتتبع والتقييم</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view"
+                    onclick="openPdf('عرض التخطيط والتقييم','documents/slides/slide_4.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- مجموعة عروض التكوين -->
+          <div class="dd-group" id="dd-s10">
+
+            <div class="dd-group-header" onclick="toggleDdGroup('dd-s10')">
+              <div class="dgh-left">
+                <div class="dgh-icon">🖥️</div>
+                <div>
+                  <h3>عروض مشروع المؤسسة المندمج </h3>
+                </div>
+              </div>
+              <div class="dgh-right">
+                <span class="dgh-arrow">▼</span>
+              </div>
+            </div>
+
+            <div class="dd-items">
+              <div class="slide-item" data-search="عرض التدبير التربوي بوربوينت">
+                <div class="slide-thumb">📊</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض مجزوءة التدبير التربوي</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view"
+                    onclick="openPdf('عرض التدبير التربوي','documents/slides/slide_1.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+
+              <div class="slide-item" data-search="عرض التشريع المدرسي بوربوينت">
+                <div class="slide-thumb">⚖️</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض مجزوءة التشريع المدرسي</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view"
+                    onclick="openPdf('عرض التشريع المدرسي','documents/slides/slide_2.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+
+              <div class="slide-item" data-search="عرض مشروع المؤسسة بوربوينت">
+                <div class="slide-thumb">🚀</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض مشروع المؤسسة المندمج</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view" onclick="openPdf('عرض مشروع المؤسسة','documents/slides/slide_3.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+
+              <div class="slide-item" data-search="عرض التخطيط التتبع التقييم بوربوينت">
+                <div class="slide-thumb">📈</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض التخطيط والتتبع والتقييم</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view"
+                    onclick="openPdf('عرض التخطيط والتقييم','documents/slides/slide_4.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+
+              <div class="slide-item" data-search="عرض التخطيط التتبع التقييم بوربوينت">
+                <div class="slide-thumb">📈</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض التخطيط والتتبع والتقييم</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view"
+                    onclick="openPdf('عرض التخطيط والتقييم','documents/slides/slide_4.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- مجموعة عروض التكوين -->
+          <div class="dd-group" id="dd-s11">
+
+            <div class="dd-group-header" onclick="toggleDdGroup('dd-s11')">
+              <div class="dgh-left">
+                <div class="dgh-icon">🖥️</div>
+                <div>
+                  <h3>عروض التواصل والتنشيط بالوسط المدرسي </h3>
+                </div>
+              </div>
+              <div class="dgh-right">
+                <span class="dgh-arrow">▼</span>
+              </div>
+            </div>
+
+            <div class="dd-items">
+              <div class="slide-item" data-search="عرض التدبير التربوي بوربوينت">
+                <div class="slide-thumb">📊</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض مجزوءة التدبير التربوي</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view"
+                    onclick="openPdf('عرض التدبير التربوي','documents/slides/slide_1.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+
+              <div class="slide-item" data-search="عرض التشريع المدرسي بوربوينت">
+                <div class="slide-thumb">⚖️</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض مجزوءة التشريع المدرسي</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view"
+                    onclick="openPdf('عرض التشريع المدرسي','documents/slides/slide_2.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+
+              <div class="slide-item" data-search="عرض مشروع المؤسسة بوربوينت">
+                <div class="slide-thumb">🚀</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض مشروع المؤسسة المندمج</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view" onclick="openPdf('عرض مشروع المؤسسة','documents/slides/slide_3.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+
+              <div class="slide-item" data-search="عرض التخطيط التتبع التقييم بوربوينت">
+                <div class="slide-thumb">📈</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض التخطيط والتتبع والتقييم</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view"
+                    onclick="openPdf('عرض التخطيط والتقييم','documents/slides/slide_4.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+
+              <div class="slide-item" data-search="عرض التخطيط التتبع التقييم بوربوينت">
+                <div class="slide-thumb">📈</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض التخطيط والتتبع والتقييم</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view"
+                    onclick="openPdf('عرض التخطيط والتقييم','documents/slides/slide_4.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- مجموعة عروض التكوين -->
+          <div class="dd-group" id="dd-s12">
+
+            <div class="dd-group-header" onclick="toggleDdGroup('dd-s12')">
+              <div class="dgh-left">
+                <div class="dgh-icon">🖥️</div>
+                <div>
+                  <h3>عروض أخلاقيات مهن الإدارة التربوية </h3>
+                </div>
+              </div>
+              <div class="dgh-right">
+                <span class="dgh-arrow">▼</span>
+              </div>
+            </div>
+
+            <div class="dd-items">
+              <div class="slide-item" data-search="عرض التدبير التربوي بوربوينت">
+                <div class="slide-thumb">📊</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض مجزوءة التدبير التربوي</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view"
+                    onclick="openPdf('عرض التدبير التربوي','documents/slides/slide_1.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+
+              <div class="slide-item" data-search="عرض التشريع المدرسي بوربوينت">
+                <div class="slide-thumb">⚖️</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض مجزوءة التشريع المدرسي</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view"
+                    onclick="openPdf('عرض التشريع المدرسي','documents/slides/slide_2.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+
+              <div class="slide-item" data-search="عرض مشروع المؤسسة بوربوينت">
+                <div class="slide-thumb">🚀</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض مشروع المؤسسة المندمج</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view" onclick="openPdf('عرض مشروع المؤسسة','documents/slides/slide_3.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+
+              <div class="slide-item" data-search="عرض التخطيط التتبع التقييم بوربوينت">
+                <div class="slide-thumb">📈</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض التخطيط والتتبع والتقييم</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view"
+                    onclick="openPdf('عرض التخطيط والتقييم','documents/slides/slide_4.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+
+              <div class="slide-item" data-search="عرض التخطيط التتبع التقييم بوربوينت">
+                <div class="slide-thumb">📈</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض التخطيط والتتبع والتقييم</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view"
+                    onclick="openPdf('عرض التخطيط والتقييم','documents/slides/slide_4.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- مجموعة عروض التكوين -->
+          <div class="dd-group" id="dd-s13">
+
+            <div class="dd-group-header" onclick="toggleDdGroup('dd-s13')">
+              <div class="dgh-left">
+                <div class="dgh-icon">🖥️</div>
+                <div>
+                  <h3>عروض سيكوسوسيولوجيا تدبير مؤسسة تعليمية </h3>
+                </div>
+              </div>
+              <div class="dgh-right">
+                <span class="dgh-arrow">▼</span>
+              </div>
+            </div>
+
+            <div class="dd-items">
+              <div class="slide-item" data-search="عرض التدبير التربوي بوربوينت">
+                <div class="slide-thumb">📊</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض مجزوءة التدبير التربوي</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view"
+                    onclick="openPdf('عرض التدبير التربوي','documents/slides/slide_1.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+
+              <div class="slide-item" data-search="عرض التشريع المدرسي بوربوينت">
+                <div class="slide-thumb">⚖️</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض مجزوءة التشريع المدرسي</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view"
+                    onclick="openPdf('عرض التشريع المدرسي','documents/slides/slide_2.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+
+              <div class="slide-item" data-search="عرض مشروع المؤسسة بوربوينت">
+                <div class="slide-thumb">🚀</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض مشروع المؤسسة المندمج</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view" onclick="openPdf('عرض مشروع المؤسسة','documents/slides/slide_3.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+
+              <div class="slide-item" data-search="عرض التخطيط التتبع التقييم بوربوينت">
+                <div class="slide-thumb">📈</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض التخطيط والتتبع والتقييم</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view"
+                    onclick="openPdf('عرض التخطيط والتقييم','documents/slides/slide_4.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+
+              <div class="slide-item" data-search="عرض التخطيط التتبع التقييم بوربوينت">
+                <div class="slide-thumb">📈</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض التخطيط والتتبع والتقييم</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view"
+                    onclick="openPdf('عرض التخطيط والتقييم','documents/slides/slide_4.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- مجموعة عروض التكوين -->
+          <div class="dd-group" id="dd-s14">
+
+            <div class="dd-group-header" onclick="toggleDdGroup('dd-s14')">
+              <div class="dgh-left">
+                <div class="dgh-icon">🖥️</div>
+                <div>
+                  <h3>عروض الشراكة والتعاون </h3>
+                </div>
+              </div>
+              <div class="dgh-right">
+                <span class="dgh-arrow">▼</span>
+              </div>
+            </div>
+
+            <div class="dd-items">
+              <div class="slide-item" data-search="عرض التدبير التربوي بوربوينت">
+                <div class="slide-thumb">📊</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض مجزوءة التدبير التربوي</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view"
+                    onclick="openPdf('عرض التدبير التربوي','documents/slides/slide_1.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+
+              <div class="slide-item" data-search="عرض التشريع المدرسي بوربوينت">
+                <div class="slide-thumb">⚖️</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض مجزوءة التشريع المدرسي</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view"
+                    onclick="openPdf('عرض التشريع المدرسي','documents/slides/slide_2.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+
+              <div class="slide-item" data-search="عرض مشروع المؤسسة بوربوينت">
+                <div class="slide-thumb">🚀</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض مشروع المؤسسة المندمج</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view" onclick="openPdf('عرض مشروع المؤسسة','documents/slides/slide_3.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+
+              <div class="slide-item" data-search="عرض التخطيط التتبع التقييم بوربوينت">
+                <div class="slide-thumb">📈</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض التخطيط والتتبع والتقييم</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view"
+                    onclick="openPdf('عرض التخطيط والتقييم','documents/slides/slide_4.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+
+              <div class="slide-item" data-search="عرض التخطيط التتبع التقييم بوربوينت">
+                <div class="slide-thumb">📈</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض التخطيط والتتبع والتقييم</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view"
+                    onclick="openPdf('عرض التخطيط والتقييم','documents/slides/slide_4.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- مجموعة عروض التكوين -->
+          <div class="dd-group" id="dd-s15">
+
+            <div class="dd-group-header" onclick="toggleDdGroup('dd-s15')">
+              <div class="dgh-left">
+                <div class="dgh-icon">🖥️</div>
+                <div>
+                  <h3>عروض الإحصاء والتخطيط التربوي </h3>
+                </div>
+              </div>
+              <div class="dgh-right">
+                <span class="dgh-arrow">▼</span>
+              </div>
+            </div>
+
+            <div class="dd-items">
+              <div class="slide-item" data-search="عرض التدبير التربوي بوربوينت">
+                <div class="slide-thumb">📊</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض مجزوءة التدبير التربوي</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view"
+                    onclick="openPdf('عرض التدبير التربوي','documents/slides/slide_1.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+
+              <div class="slide-item" data-search="عرض التشريع المدرسي بوربوينت">
+                <div class="slide-thumb">⚖️</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض مجزوءة التشريع المدرسي</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view"
+                    onclick="openPdf('عرض التشريع المدرسي','documents/slides/slide_2.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+
+              <div class="slide-item" data-search="عرض مشروع المؤسسة بوربوينت">
+                <div class="slide-thumb">🚀</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض مشروع المؤسسة المندمج</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view" onclick="openPdf('عرض مشروع المؤسسة','documents/slides/slide_3.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+
+              <div class="slide-item" data-search="عرض التخطيط التتبع التقييم بوربوينت">
+                <div class="slide-thumb">📈</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض التخطيط والتتبع والتقييم</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view"
+                    onclick="openPdf('عرض التخطيط والتقييم','documents/slides/slide_4.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+
+              <div class="slide-item" data-search="عرض التخطيط التتبع التقييم بوربوينت">
+                <div class="slide-thumb">📈</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض التخطيط والتتبع والتقييم</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view"
+                    onclick="openPdf('عرض التخطيط والتقييم','documents/slides/slide_4.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- مجموعة عروض التكوين -->
+          <div class="dd-group" id="dd-s16">
+
+            <div class="dd-group-header" onclick="toggleDdGroup('dd-s16')">
+              <div class="dgh-left">
+                <div class="dgh-icon">🖥️</div>
+                <div>
+                  <h3>عروض قيادة التغيير </h3>
+                </div>
+              </div>
+              <div class="dgh-right">
+                <span class="dgh-arrow">▼</span>
+              </div>
+            </div>
+
+            <div class="dd-items">
+              <div class="slide-item" data-search="عرض التدبير التربوي بوربوينت">
+                <div class="slide-thumb">📊</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض مجزوءة التدبير التربوي</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view"
+                    onclick="openPdf('عرض التدبير التربوي','documents/slides/slide_1.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+
+              <div class="slide-item" data-search="عرض التشريع المدرسي بوربوينت">
+                <div class="slide-thumb">⚖️</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض مجزوءة التشريع المدرسي</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view"
+                    onclick="openPdf('عرض التشريع المدرسي','documents/slides/slide_2.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+
+              <div class="slide-item" data-search="عرض مشروع المؤسسة بوربوينت">
+                <div class="slide-thumb">🚀</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض مشروع المؤسسة المندمج</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view" onclick="openPdf('عرض مشروع المؤسسة','documents/slides/slide_3.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+
+              <div class="slide-item" data-search="عرض التخطيط التتبع التقييم بوربوينت">
+                <div class="slide-thumb">📈</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض التخطيط والتتبع والتقييم</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view"
+                    onclick="openPdf('عرض التخطيط والتقييم','documents/slides/slide_4.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+
+              <div class="slide-item" data-search="عرض التخطيط التتبع التقييم بوربوينت">
+                <div class="slide-thumb">📈</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض التخطيط والتتبع والتقييم</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view"
+                    onclick="openPdf('عرض التخطيط والتقييم','documents/slides/slide_4.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- مجموعة عروض التكوين -->
+          <div class="dd-group" id="dd-s17">
+
+            <div class="dd-group-header" onclick="toggleDdGroup('dd-s17')">
+              <div class="dgh-left">
+                <div class="dgh-icon">🖥️</div>
+                <div>
+                  <h3>عروض منظومة إعلام التربية </h3>
+                </div>
+              </div>
+              <div class="dgh-right">
+                <span class="dgh-arrow">▼</span>
+              </div>
+            </div>
+
+            <div class="dd-items">
+              <div class="slide-item" data-search="عرض التدبير التربوي بوربوينت">
+                <div class="slide-thumb">📊</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض مجزوءة التدبير التربوي</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view"
+                    onclick="openPdf('عرض التدبير التربوي','documents/slides/slide_1.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+
+              <div class="slide-item" data-search="عرض التشريع المدرسي بوربوينت">
+                <div class="slide-thumb">⚖️</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض مجزوءة التشريع المدرسي</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view"
+                    onclick="openPdf('عرض التشريع المدرسي','documents/slides/slide_2.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+
+              <div class="slide-item" data-search="عرض مشروع المؤسسة بوربوينت">
+                <div class="slide-thumb">🚀</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض مشروع المؤسسة المندمج</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view" onclick="openPdf('عرض مشروع المؤسسة','documents/slides/slide_3.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+
+              <div class="slide-item" data-search="عرض التخطيط التتبع التقييم بوربوينت">
+                <div class="slide-thumb">📈</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض التخطيط والتتبع والتقييم</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view"
+                    onclick="openPdf('عرض التخطيط والتقييم','documents/slides/slide_4.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+
+              <div class="slide-item" data-search="عرض التخطيط التتبع التقييم بوربوينت">
+                <div class="slide-thumb">📈</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض التخطيط والتتبع والتقييم</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view"
+                    onclick="openPdf('عرض التخطيط والتقييم','documents/slides/slide_4.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- مجموعة عروض التكوين -->
+          <div class="dd-group" id="dd-s18">
+
+            <div class="dd-group-header" onclick="toggleDdGroup('dd-s18')">
+              <div class="dgh-left">
+                <div class="dgh-icon">🖥️</div>
+                <div>
+                  <h3>عروض التقويم المؤسساتي </h3>
+                </div>
+              </div>
+              <div class="dgh-right">
+                <span class="dgh-arrow">▼</span>
+              </div>
+            </div>
+
+            <div class="dd-items">
+              <div class="slide-item" data-search="عرض التدبير التربوي بوربوينت">
+                <div class="slide-thumb">📊</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض مجزوءة التدبير التربوي</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view"
+                    onclick="openPdf('عرض التدبير التربوي','documents/slides/slide_1.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+
+              <div class="slide-item" data-search="عرض التشريع المدرسي بوربوينت">
+                <div class="slide-thumb">⚖️</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض مجزوءة التشريع المدرسي</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view"
+                    onclick="openPdf('عرض التشريع المدرسي','documents/slides/slide_2.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+
+              <div class="slide-item" data-search="عرض مشروع المؤسسة بوربوينت">
+                <div class="slide-thumb">🚀</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض مشروع المؤسسة المندمج</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view" onclick="openPdf('عرض مشروع المؤسسة','documents/slides/slide_3.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+
+              <div class="slide-item" data-search="عرض التخطيط التتبع التقييم بوربوينت">
+                <div class="slide-thumb">📈</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض التخطيط والتتبع والتقييم</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view"
+                    onclick="openPdf('عرض التخطيط والتقييم','documents/slides/slide_4.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+
+              <div class="slide-item" data-search="عرض التخطيط التتبع التقييم بوربوينت">
+                <div class="slide-thumb">📈</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض التخطيط والتتبع والتقييم</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view"
+                    onclick="openPdf('عرض التخطيط والتقييم','documents/slides/slide_4.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- مجموعة عروض التكوين -->
+          <div class="dd-group" id="dd-s19">
+
+            <div class="dd-group-header" onclick="toggleDdGroup('dd-s19')">
+              <div class="dgh-left">
+                <div class="dgh-icon">🖥️</div>
+                <div>
+                  <h3>عروض التوثيق والأرشيف </h3>
+                </div>
+              </div>
+              <div class="dgh-right">
+                <span class="dgh-arrow">▼</span>
+              </div>
+            </div>
+
+            <div class="dd-items">
+              <div class="slide-item" data-search="عرض التدبير التربوي بوربوينت">
+                <div class="slide-thumb">📊</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض مجزوءة التدبير التربوي</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view"
+                    onclick="openPdf('عرض التدبير التربوي','documents/slides/slide_1.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+
+              <div class="slide-item" data-search="عرض التشريع المدرسي بوربوينت">
+                <div class="slide-thumb">⚖️</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض مجزوءة التشريع المدرسي</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view"
+                    onclick="openPdf('عرض التشريع المدرسي','documents/slides/slide_2.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+
+              <div class="slide-item" data-search="عرض مشروع المؤسسة بوربوينت">
+                <div class="slide-thumb">🚀</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض مشروع المؤسسة المندمج</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view" onclick="openPdf('عرض مشروع المؤسسة','documents/slides/slide_3.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+
+              <div class="slide-item" data-search="عرض التخطيط التتبع التقييم بوربوينت">
+                <div class="slide-thumb">📈</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض التخطيط والتتبع والتقييم</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view"
+                    onclick="openPdf('عرض التخطيط والتقييم','documents/slides/slide_4.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+
+              <div class="slide-item" data-search="عرض التخطيط التتبع التقييم بوربوينت">
+                <div class="slide-thumb">📈</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض التخطيط والتتبع والتقييم</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view"
+                    onclick="openPdf('عرض التخطيط والتقييم','documents/slides/slide_4.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- مجموعة عروض التكوين -->
+          <div class="dd-group" id="dd-s20">
+
+            <div class="dd-group-header" onclick="toggleDdGroup('dd-s20')">
+              <div class="dgh-left">
+                <div class="dgh-icon">🖥️</div>
+                <div>
+                  <h3>عروض تحليل الممارسة المهنية </h3>
+                </div>
+              </div>
+              <div class="dgh-right">
+                <span class="dgh-arrow">▼</span>
+              </div>
+            </div>
+
+            <div class="dd-items">
+              <div class="slide-item" data-search="عرض التدبير التربوي بوربوينت">
+                <div class="slide-thumb">📊</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض مجزوءة التدبير التربوي</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view"
+                    onclick="openPdf('عرض التدبير التربوي','documents/slides/slide_1.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+
+              <div class="slide-item" data-search="عرض التشريع المدرسي بوربوينت">
+                <div class="slide-thumb">⚖️</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض مجزوءة التشريع المدرسي</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view"
+                    onclick="openPdf('عرض التشريع المدرسي','documents/slides/slide_2.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+
+              <div class="slide-item" data-search="عرض مشروع المؤسسة بوربوينت">
+                <div class="slide-thumb">🚀</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض مشروع المؤسسة المندمج</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view" onclick="openPdf('عرض مشروع المؤسسة','documents/slides/slide_3.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+
+              <div class="slide-item" data-search="عرض التخطيط التتبع التقييم بوربوينت">
+                <div class="slide-thumb">📈</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض التخطيط والتتبع والتقييم</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view"
+                    onclick="openPdf('عرض التخطيط والتقييم','documents/slides/slide_4.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+
+              <div class="slide-item" data-search="عرض التخطيط التتبع التقييم بوربوينت">
+                <div class="slide-thumb">📈</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض التخطيط والتتبع والتقييم</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view"
+                    onclick="openPdf('عرض التخطيط والتقييم','documents/slides/slide_4.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- مجموعة عروض التكوين -->
+          <div class="dd-group" id="dd-s21">
+
+            <div class="dd-group-header" onclick="toggleDdGroup('dd-s21')">
+              <div class="dgh-left">
+                <div class="dgh-icon">🖥️</div>
+                <div>
+                  <h3>عروض منهجية البحث التدخلي ومقاربة المشروع </h3>
+                </div>
+              </div>
+              <div class="dgh-right">
+                <span class="dgh-arrow">▼</span>
+              </div>
+            </div>
+
+            <div class="dd-items">
+              <div class="slide-item" data-search="عرض التدبير التربوي بوربوينت">
+                <div class="slide-thumb">📊</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض مجزوءة التدبير التربوي</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view"
+                    onclick="openPdf('عرض التدبير التربوي','documents/slides/slide_1.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+
+              <div class="slide-item" data-search="عرض التشريع المدرسي بوربوينت">
+                <div class="slide-thumb">⚖️</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض مجزوءة التشريع المدرسي</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view"
+                    onclick="openPdf('عرض التشريع المدرسي','documents/slides/slide_2.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+
+              <div class="slide-item" data-search="عرض مشروع المؤسسة بوربوينت">
+                <div class="slide-thumb">🚀</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض مشروع المؤسسة المندمج</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view" onclick="openPdf('عرض مشروع المؤسسة','documents/slides/slide_3.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+
+              <div class="slide-item" data-search="عرض التخطيط التتبع التقييم بوربوينت">
+                <div class="slide-thumb">📈</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض التخطيط والتتبع والتقييم</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view"
+                    onclick="openPdf('عرض التخطيط والتقييم','documents/slides/slide_4.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+
+              <div class="slide-item" data-search="عرض التخطيط التتبع التقييم بوربوينت">
+                <div class="slide-thumb">📈</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض التخطيط والتتبع والتقييم</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view"
+                    onclick="openPdf('عرض التخطيط والتقييم','documents/slides/slide_4.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- مجموعة عروض التكوين -->
+          <div class="dd-group" id="dd-s22">
+
+            <div class="dd-group-header" onclick="toggleDdGroup('dd-s22')">
+              <div class="dgh-left">
+                <div class="dgh-icon">🖥️</div>
+                <div>
+                  <h3>عروض تدبير الجمعيات المدرسية </h3>
+                </div>
+              </div>
+              <div class="dgh-right">
+                <span class="dgh-arrow">▼</span>
+              </div>
+            </div>
+
+            <div class="dd-items">
+              <div class="slide-item" data-search="عرض التدبير التربوي بوربوينت">
+                <div class="slide-thumb">📊</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض مجزوءة التدبير التربوي</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view"
+                    onclick="openPdf('عرض التدبير التربوي','documents/slides/slide_1.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+
+              <div class="slide-item" data-search="عرض التشريع المدرسي بوربوينت">
+                <div class="slide-thumb">⚖️</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض مجزوءة التشريع المدرسي</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view"
+                    onclick="openPdf('عرض التشريع المدرسي','documents/slides/slide_2.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+
+              <div class="slide-item" data-search="عرض مشروع المؤسسة بوربوينت">
+                <div class="slide-thumb">🚀</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض مشروع المؤسسة المندمج</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view" onclick="openPdf('عرض مشروع المؤسسة','documents/slides/slide_3.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+
+              <div class="slide-item" data-search="عرض التخطيط التتبع التقييم بوربوينت">
+                <div class="slide-thumb">📈</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض التخطيط والتتبع والتقييم</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view"
+                    onclick="openPdf('عرض التخطيط والتقييم','documents/slides/slide_4.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+
+              <div class="slide-item" data-search="عرض التخطيط التتبع التقييم بوربوينت">
+                <div class="slide-thumb">📈</div>
+                <div class="slide-info">
+                  <div class="slide-title">عرض التخطيط والتتبع والتقييم</div>
+                </div>
+                <div class="slide-actions">
+                  <button class="ddi-btn-view"
+                    onclick="openPdf('عرض التخطيط والتقييم','documents/slides/slide_4.pdf')">👁
+                    عرض</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="dd-panel" id="panel-examens">
+        <div class="dd-search">
+          <span class="ds-icon">🔍</span>
+          <input type="text" id="exam-search-input" placeholder="ابحث في الامتحانات..."
+            oninput="filterExamens(this.value)">
+        </div>
+
+        <div class="ltw" style="margin-top:16px;">
+          <div class="lth" style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
+            <h3 style="margin:0;">📝 قائمة الامتحانات</h3>
+            <span style="font-size:12px;color:var(--tl);margin-right:auto;" id="exam-count"></span>
+          </div>
+          <div style="overflow-x:auto;">
+            <table class="lt" id="tl-examens">
+              <thead>
+                <tr>
+                  <th style="width:36px;">#</th>
+                  <th>اسم الملف</th>
+                  <th style="width:140px;">نوع الامتحان</th>
+                  <th style="width:90px;">السنة</th>
+                  <th style="width:90px;"> </th>
+                </tr>
+              </thead>
+              <tbody id="examens-tbody">
+                <tr>
+                  <td>1</td>
+                  <td>امتحان التدبير الإداري</td>
+                  <td><span class="tt t1">امتحان كتابي</span></td>
+                  <td>2024</td>
+                  <td>
+                    <div class="tact"><button class="tvb"
+                        onclick="openPdf('امتحان التدبير الإداري 2024','Examens/exam_admin_2024.pdf')">👁 عرض</button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>امتحان التشريع المدرسي</td>
+                  <td><span class="tt t2">امتحان كتابي</span></td>
+                  <td>2024</td>
+                  <td>
+                    <div class="tact"><button class="tvb"
+                        onclick="openPdf('امتحان التشريع المدرسي 2024','Examens/exam_legislation_2024.pdf')">👁
+                        عرض</button></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td>امتحان التدبير المالي والمادي</td>
+                  <td><span class="tt t1">امتحان كتابي</span></td>
+                  <td>2024</td>
+                  <td>
+                    <div class="tact"><button class="tvb"
+                        onclick="openPdf('امتحان التدبير المالي 2024','Examens/exam_financier_2024.pdf')">👁
+                        عرض</button></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>4</td>
+                  <td>امتحان التخطيط التربوي</td>
+                  <td><span class="tt t3">فرض مراقبة</span></td>
+                  <td>2024</td>
+                  <td>
+                    <div class="tact"><button class="tvb"
+                        onclick="openPdf('امتحان التخطيط التربوي 2024','Examens/exam_planif_2024.pdf')">👁 عرض</button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>5</td>
+                  <td>امتحان قيادة المؤسسة</td>
+                  <td><span class="tt t3">فرض مراقبة</span></td>
+                  <td>2025</td>
+                  <td>
+                    <div class="tact"><button class="tvb"
+                        onclick="openPdf('امتحان قيادة المؤسسة 2025','Examens/exam_leadership_2025.pdf')">👁
+                        عرض</button></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>6</td>
+                  <td>امتحان التواصل والتدبير البيداغوجي</td>
+                  <td><span class="tt t2">امتحان كتابي</span></td>
+                  <td>2025</td>
+                  <td>
+                    <div class="tact"><button class="tvb"
+                        onclick="openPdf('امتحان التواصل البيداغوجي 2025','Examens/exam_comm_2025.pdf')">👁 عرض</button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>7</td>
+                  <td>امتحان نهاية السنة الأولى</td>
+                  <td><span class="tt t4">امتحان نهائي</span></td>
+                  <td>2026</td>
+                  <td>
+                    <div class="tact"><button class="tvb"
+                        onclick="openPdf('امتحان نهاية السنة الأولى','Examens/exam_final_s1.pdf')">👁 عرض</button></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>8</td>
+                  <td>فرض التداريب الميدانية — المرحلة الأولى</td>
+                  <td><span class="tt t3">فرض مراقبة</span></td>
+                  <td>2025</td>
+                  <td>
+                    <div class="tact"><button class="tvb"
+                        onclick="openPdf('فرض التداريب المرحلة الأولى','Examens/exam_stage1.pdf')">👁 عرض</button></div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════ -->
+    <!-- LEGAL -->
+    <div class="pg" id="pg-legal">
+      <div class="sechdr">
+        <div class="shico">⚖️</div>
+        <div>
+          <h2>نصوص قانونية وتنظيمية</h2>
+          <p>أهم النصوص القانونية والتنظيمية المنظمة للتدبير الإداري والتربوي والمادي والمالي</p>
+        </div>
+      </div>
+      <div id="lm">
+        <div class="sigrid">
+          <div class="sic" onclick="ssv('legal','lg-d')"> <span class="sii">📜</span>
+            <h3>الظهائر والقوانين</h3>
+          </div>
+          <div class="sic" onclick="ssv('legal','lg-m')"> <span class="sii">📃</span>
+            <h3>المراسيم والمناشير</h3>
+          </div>
+          <div class="sic" onclick="ssv('legal','lg-mk')"><span class="sii">📑</span>
+            <h3>القرارات والمذكرات</h3>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dahirs et Lois -->
+      <div class="sv" id="lg-d">
+        <button class="back" onclick="hsv('lg-d','lm')">← العودة</button>
+        <div class="ltw">
+          <div class="lth">
+            <h3>📜 الظهائر والقوانين</h3>
+          </div>
+          <table class="lt" id="tld">
+            <thead>
+              <tr>
+                <th>النوع</th>
+                <th>الرقم</th>
+                <th>التاريخ</th>
+                <th>الموضوع</th>
+                <th> </th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr>
+                <td><span class="tt t1">ظهير شريف</span></td>
+                <td>1.58.008</td>
+                <td>1958-04-11</td>
+                <td>النظام الأساسي العام للوظيفة العمومية</td>
+                <td>
+                  <div class="tact">
+                    <a href="https://drive.google.com/file/d/1RYCJxzkTarwFGipNt2k0n2Z4p5ZBOvvv/view?usp=sharing"
+                      target="_blank" class="bview">📂 عرض</a>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+
+            <tbody>
+              <tr>
+                <td><span class="tt t2">ظهير تنفيذي للقانون</span></td>
+                <td>51.17</td>
+                <td>2019-08-09</td>
+                <td>القانون الإطار المتعلق بمنظومة التربية والتكويت والبحث العلمي</td>
+                <td>
+                  <div class="tact">
+                    <a href="https://drive.google.com/file/d/1ZYEIfbrHZmJbqZ9zcj13bARfYMH1RIaa/view?usp=sharing"
+                      target="_blank" class="bview">📂 عرض</a>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+
+            <tbody>
+              <tr>
+                <td><span class="tt t2">ظهير تنفيذي للقانون</span></td>
+                <td>59.21</td>
+                <td>2026-02-11</td>
+                <td>المتعلق بالتعليم المدرسي</td>
+                <td>
+                  <div class="tact">
+                    <a href="https://drive.google.com/file/d/1pz4nTTyEs7lW3fDrbKOXbvsISPQBnaCJ/view?usp=sharing"
+                      target="_blank" class="bview">📂 عرض</a>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+
+            <tbody>
+              <tr>
+                <td><span class="tt t2">ظهير تنفيذي للقانون</span></td>
+                <td>07.00</td>
+                <td>2000-05-19</td>
+                <td>إحداث الأكاديميات الجهوية للتربية والتكوين</td>
+                <td>
+                  <div class="tact">
+                    <a href="https://drive.google.com/file/d/169ydHCbqdGZT3GXmQLkudN0rsFPXVZfQ/view?usp=sharing"
+                      target="_blank" class="bview">📂 عرض</a>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+
+            <tbody>
+              <tr>
+                <td><span class="tt t2">ظهير تنفيذي للقانون</span></td>
+                <td>07.92</td>
+                <td>1993-09-10</td>
+                <td>المتعلق بالرعاية الاجتماعية للأشخاص المعاقين</td>
+                <td>
+                  <div class="tact">
+                    <a href="https://drive.google.com/file/d/1kVcVBeh1kZJieO8H4xWEbIuLCqlWaaGD/view?usp=sharing"
+                      target="_blank" class="bview">📂 عرض</a>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+
+            <tbody>
+              <tr>
+                <td><span class="tt t2">ظهير تنفيذي للقانون</span></td>
+                <td>61.99</td>
+                <td>2002-04-03</td>
+                <td>المتعلق بمسؤولية الآمرين بالصرف، المراقبين والمحاسبين العموميين</td>
+                <td>
+                  <div class="tact">
+                    <a href="https://drive.google.com/file/d/17Yyko0i2tyuCX11fJb-NjOqHKd4DeQrx/view?usp=sharing"
+                      target="_blank" class="bview">📂 عرض</a>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+
+            <tbody>
+              <tr>
+                <td><span class="tt t2">ظهير تنفيذي للقانون</span></td>
+                <td>97.13</td>
+                <td>2016-04-27</td>
+                <td>المتعلق بحماية حقوق الأشخاص في وضعية إعاقة والنهوض بها</td>
+                <td>
+                  <div class="tact">
+                    <a href="https://drive.google.com/file/d/1RgdHJAD3me_27ZGcaaaDsmbOjOYpGOti/view?usp=sharing"
+                      target="_blank" class="bview">📂 عرض</a>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+
+          </table>
+        </div>
+      </div>
+
+      <!-- Décrets et Circulaires -->
+      <div class="sv" id="lg-m">
+        <button class="back" onclick="hsv('lg-m','lm')">← العودة</button>
+        <div class="ltw">
+          <div class="lth">
+            <h3>📃 المراسيم والمناشير</h3>
+          </div>
+          <table class="lt" id="tlm">
+            <thead>
+              <tr>
+                <th>النوع</th>
+                <th>الرقم</th>
+                <th>التاريخ</th>
+                <th>الموضوع</th>
+                <th> </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="tt t2">مرسوم</span></td>
+                <td>2.02.376</td>
+                <td>2002-07-17</td>
+                <td>النظام الأساسي الخاص بمؤسسات التربية والتعليم العمومي</td>
+                <td>
+                  <div class="tact">
+                    <a href="https://drive.google.com/file/d/1RuP3wa0yGXo5FFsmu6ir454Ut5cB6tGr/view?usp=sharing"
+                      target="_blank" class="bview">📂 عرض</a>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+
+            <tbody>
+              <tr>
+                <td><span class="tt t2">مرسوم</span></td>
+                <td>2.24.140</td>
+                <td>2024-02-23</td>
+                <td>النظام الأساسي الخاص بموظفي الوزارة المكلفة بالتربية الوطنية</td>
+                <td>
+                  <div class="tact">
+                    <a href="https://drive.google.com/file/d/12Mlct-Fx2kicc00WZ0eMHhpnNpJyBiDB/view?usp=sharing"
+                      target="_blank" class="bview">📂 عرض</a>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+
+            <tbody>
+              <tr>
+                <td><span class="tt t2">مرسوم</span></td>
+                <td>2.24.140</td>
+                <td>2024-02-23</td>
+                <td>النظام الأساسي الخاص بموظفي الوزارة المكلفة بالتربية الوطنية</td>
+                <td>
+                  <div class="tact">
+                    <a href="https://drive.google.com/file/d/12Mlct-Fx2kicc00WZ0eMHhpnNpJyBiDB/view?usp=sharing"
+                      target="_blank" class="bview">📂 عرض</a>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+
+            <tbody>
+              <tr>
+                <td><span class="tt t2">مرسوم</span></td>
+                <td>2.05.916</td>
+                <td>2005-07-20</td>
+                <td>المتعلق بتحديد أيام ومواقيت العمل بإدارات الدولة والجماعات المحلية</td>
+                <td>
+                  <div class="tact">
+                    <a href="https://drive.google.com/file/d/14dgpwi1DYsk4v3OCnahbBKTsCuJOBo7U/view?usp=sharing"
+                      target="_blank" class="bview">📂 عرض</a>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+
+            <tbody>
+              <tr>
+                <td><span class="tt t2">مرسوم</span></td>
+                <td>2.18.880</td>
+                <td>2018-11-08</td>
+                <td>بتغيير وتتميم المرسوم رقم 2.05.916 بتحديد أيام ومواقيت العمل بإدارات الدولة والجماعات المحلية</td>
+                <td>
+                  <div class="tact">
+                    <a href="https://drive.google.com/file/d/13p-RH1WM5Z1T99lAWRnjrWNmWaGGqLgH/view?usp=sharing"
+                      target="_blank" class="bview">📂 عرض</a>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+
+            <tbody>
+              <tr>
+                <td><span class="tt t2">مرسوم</span></td>
+                <td>2.11.672</td>
+                <td>2011-12-23</td>
+                <td>في شأن إحداث وتنظيم المراكز الجهوية لمهن التربية والتكوين</td>
+                <td>
+                  <div class="tact">
+                    <a href="https://drive.google.com/file/d/109saVMKp-2FccjicbGV6yUzeD2-oWMCb/view?usp=sharing"
+                      target="_blank" class="bview">📂 عرض</a>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+
+            <tbody>
+              <tr>
+                <td><span class="tt t2">مرسوم</span></td>
+                <td>2.20.475</td>
+                <td>2021-07-20</td>
+                <td>بتحديد قواعد اشتغال وأدوار ومهام جمعيات أمهات وآباء وأولياء التلميذات والتلاميذ في علاقتها بمؤسسات
+                  التربية والتكوين</td>
+                <td>
+                  <div class="tact">
+                    <a href="https://drive.google.com/file/d/1jV8qIymDo_ZM48uTB24Ytd9TmgVBIc1d/view?usp=sharing"
+                      target="_blank" class="bview">📂 عرض</a>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+
+            <tbody>
+              <tr>
+                <td><span class="tt t2">مرسوم</span></td>
+                <td>2.22.470</td>
+                <td>2022-09-03</td>
+                <td>بتحديد قائمة الأمراض التي تخول الحق في رخصة المرض متوسطة الأمد</td>
+                <td>
+                  <div class="tact">
+                    <a href="https://drive.google.com/file/d/1lO9JGqVg8z1NS37u9OWVad0eIQlHWH9u/view?usp=sharing"
+                      target="_blank" class="bview">📂 عرض</a>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+
+
+          </table>
+        </div>
+      </div>
+
+      <!-- Décisions et Notes -->
+      <div class="sv" id="lg-mk">
+        <button class="back" onclick="hsv('lg-mk','lm')">← العودة</button>
+        <div class="ltw">
+          <div class="lth">
+            <h3>📑 القرارات والمذكرات</h3>
+          </div>
+          <table class="lt" id="tlmk">
+            <thead>
+              <tr>
+                <th>النوع</th>
+                <th>الرقم</th>
+                <th>التاريخ</th>
+                <th>الموضوع</th>
+                <th> </th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr>
+                <td><span class="tt t4">قرار</span></td>
+                <td>047</td>
+                <td>2019-07-03</td>
+                <td>بشأن التربية الدامجة للتلميذات والتلاميذ في وضعية إعاقة</td>
+                <td>
+                  <div class="tact">
+                    <button class="tvb"
+                      onclick="openPdf('المذكرة 154/2010القرار 047/2019','Decisions_notes/Décision 047x19.pdf')">👁
+                      عرض</button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+
+            <tbody>
+              <tr>
+                <td><span class="tt t4">قرار</span></td>
+                <td>04</td>
+                <td>2016-02-08</td>
+                <td>بشأن التربية الدامجة للتلميذات والتلاميذ في وضعية إعاقة</td>
+                <td>
+                  <div class="tact">
+                    <button class="tvb"
+                      onclick="openPdf('المذكرة 154/2010القرار 047/2019','Decisions_notes/Décision 047x19.pdf')">👁
+                      عرض</button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+
+            <tbody>
+              <tr>
+                <td><span class="tt t3">مذكرة</span></td>
+                <td>154</td>
+                <td>2018-09-06</td>
+                <td>تأمين الزمن المرسي وزمن التعلم</td>
+                <td>
+                  <div class="tact">
+                    <button class="tvb" onclick="openPdf('المذكرة 154/2010','Decisions_notes/Note 154x10.pdf')">👁
+                      عرض</button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+
+          </table>
+        </div>
+      </div>
+      <!-- Guides -->
+      <div class="sv" id="lg-gd">
+        <button class="back" onclick="hsv('lg-gd','lm')">← العودة</button>
+        <div class="ltw">
+          <div class="lth">
+            <h3>📑 دلائل</h3>
+          </div>
+          <table class="lt" id="tlgd">
+            <thead>
+              <tr>
+                <th>النوع</th>
+                <th>التاريخ</th>
+                <th>الموضوع</th>
+                <th> </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="tt t3">دليل</span></td>
+                <td>دجنبر 2019</td>
+                <td>دليل الحياة المدرسية</td>
+                <td>
+                  <div class="tact">
+                    <button class="tvb" onclick="openPdf('دليل الحياة المدرسية 2019','Guides/guid 2020.pdf')">👁
+                      عرض</button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ANNEXES (kept for legacy, hidden) -->
+    <div class="pg" id="pg-annexes" style="display:none"></div>
+
+    <!-- GUIDES PAGE -->
+    <div class="pg" id="pg-guides">
+      <div class="sechdr">
+        <div class="shico">📗</div>
+        <div>
+          <h2>الدلائل</h2>
+          <p>الدلائل والمراجع التربوية والإدارية</p>
+        </div>
+      </div>
+      <div class="ltw">
+        <div class="lth">
+          <h3>📗 قائمة الدلائل</h3>
+        </div>
+        <table class="lt" id="tlgd-pg">
+          <thead>
+            <tr>
+              <th>النوع</th>
+              <th>التاريخ</th>
+              <th>الموضوع</th>
+              <th> </th>
+            </tr>
+          </thead>
+
+          <tbody>
+
+            <tr>
+              <td><span class="tt t3">دليل</span></td>
+              <td>دجنبر 2019</td>
+              <td>دليل الحياة المدرسية</td>
+              <td>
+                <div class="tact">
+                  <a href="https://drive.google.com/file/d/166GfkpDNQBS_-VV30_eziDUs7MzLTXQ9/view?usp=sharing"
+                    target="_blank" class="bview">📂 عرض</a>
+                </div>
+              </td>
+            </tr>
+
+            <tr>
+              <td><span class="tt t3">دليل</span></td>
+              <td>2023</td>
+              <td>دليل مسطري في شأن التدبير المالي لجمعيات دعم مدرسة النجاح</td>
+              <td>
+                <div class="tact">
+                  <a href="https://drive.google.com/file/d/1ImL1Ppgod2LKQ38TUZi-0b0WJy_V6W9m/view?usp=sharing"
+                    target="_blank" class="bview">📂 عرض</a>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+
+        </table>
+      </div>
+    </div>
+
+    <!-- PRINTS PAGE -->
+    <div class="pg" id="pg-prints">
+      <div class="sechdr">
+        <div class="shico">🖨️</div>
+        <div>
+          <h2>مطبوعات</h2>
+          <p>النماذج والاستمارات والمطبوعات الإدارية</p>
+        </div>
+      </div>
+      <div class="ltw">
+        <div class="lth" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;">
+          <h3>🖨️ قائمة المطبوعات</h3>
+          <input type="text" id="prints-search" placeholder="🔍 بحث في المطبوعات..." oninput="filterPrints(this.value)"
+            style="padding:6px 12px;border:1px solid var(--br);border-radius:8px;font-family:inherit;font-size:14px;direction:rtl;background:white;color:var(--td);">
+        </div>
+        <table class="lt" id="tl-prints">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>اسم الملف</th>
+              <th>النوع</th>
+              <th>الوصف</th>
+              <th>الإجراء</th>
+            </tr>
+          </thead>
+          <tbody id="prints-tbody">
+            <tr>
+              <td>1</td>
+              <td>استمارة المتدرب</td>
+              <td><span class="tt t1">استمارة</span></td>
+              <td>استمارة البيانات الشخصية للمتدرب</td>
+              <td>
+                <div class="tact"><button class="tvb"
+                    onclick="openPdf('استمارة المتدرب','Imprimés/fiche_stagiaire.pdf')">👁 عرض</button></div>
+              </td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>تقرير نهاية المرحلة</td>
+              <td><span class="tt t2">تقرير</span></td>
+              <td>نموذج تقرير نهاية كل مرحلة من التدريب الميداني</td>
+              <td>
+                <div class="tact"><button class="tvb"
+                    onclick="openPdf('تقرير نهاية المرحلة','Imprimés/rapport_fin_stage.pdf')">👁 عرض</button></div>
+              </td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>بطاقة المراقبة المستمرة</td>
+              <td><span class="tt t3">بطاقة</span></td>
+              <td>بطاقة التقويم والمراقبة المستمرة للمتدرب</td>
+              <td>
+                <div class="tact"><button class="tvb"
+                    onclick="openPdf('بطاقة المراقبة','Imprimés/fiche_evaluation.pdf')">👁 عرض</button></div>
+              </td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td>محضر مجلس التدبير</td>
+              <td><span class="tt t2">محضر</span></td>
+              <td>نموذج محضر مجلس تدبير المؤسسة التعليمية</td>
+              <td>
+                <div class="tact"><button class="tvb"
+                    onclick="openPdf('محضر مجلس التدبير','Imprimés/pv_conseil_gestion.pdf')">👁 عرض</button></div>
+              </td>
+            </tr>
+            <tr>
+              <td>5</td>
+              <td>طلب رخصة غياب</td>
+              <td><span class="tt t1">استمارة</span></td>
+              <td>نموذج طلب رخصة غياب لموظفي التربية الوطنية</td>
+              <td>
+                <div class="tact"><button class="tvb" onclick="openPdf('طلب رخصة غياب','Imprimés/demande_conge.pdf')">👁
+                    عرض</button></div>
+              </td>
+            </tr>
+            <tr>
+              <td>6</td>
+              <td>بيان الغيابات</td>
+              <td><span class="tt t3">بيان</span></td>
+              <td>نموذج بيان الغيابات الأسبوعي للتلاميذ</td>
+              <td>
+                <div class="tact"><button class="tvb" onclick="openPdf('بيان الغيابات','Imprimés/etat_absences.pdf')">👁
+                    عرض</button></div>
+              </td>
+            </tr>
+            <tr>
+              <td>7</td>
+              <td>استمارة الانخراط في الأنشطة الثقافية</td>
+              <td><span class="tt t1">استمارة</span></td>
+              <td>نموذج الانخراط في الأنشطة الثقافية والرياضية</td>
+              <td>
+                <div class="tact"><button class="tvb"
+                    onclick="openPdf('استمارة الأنشطة','Imprimés/fiche_activites.pdf')">👁 عرض</button></div>
+              </td>
+            </tr>
+            <tr>
+              <td>8</td>
+              <td>سجل الحضور والغياب</td>
+              <td><span class="tt t3">سجل</span></td>
+              <td>نموذج سجل الحضور والغياب اليومي للأساتذة</td>
+              <td>
+                <div class="tact"><button class="tvb"
+                    onclick="openPdf('سجل الحضور','Imprimés/registre_presence.pdf')">👁
+                    عرض</button></div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- SITES PAGE -->
+    <div class="pg" id="pg-sites">
+      <div class="sechdr">
+        <div class="shico">🌐</div>
+        <div>
+          <h2>مواقع مهمة</h2>
+          <p>روابط المواقع الإلكترونية الرسمية والمفيدة في المجال التربوي</p>
+        </div>
+      </div>
+      <div class="cgrid" id="sites-grid">
+
+        <div class="site-card">
+          <div class="site-ico">🏛️</div>
+          <h3>وزارة التربية الوطنية</h3>
+          <p>الموقع الرسمي لوزارة التربية الوطنية والتعليم الأولي والرياضة</p>
+          <a href="https://www.men.gov.ma" target="_blank" class="site-btn">🔗 زيارة الموقع</a>
+        </div>
+
+        <div class="site-card">
+          <div class="site-ico">📚</div>
+          <h3>MASSAR</h3>
+          <p>منظومة تدبير التمدرس</p>
+          <a href="https://massar.men.gov.ma" target="_blank" class="site-btn">🔗 زيارة الموقع</a>
+        </div>
+
+        <div class="site-card">
+          <div class="site-ico">🎓</div>
+          <h3>NOTIFRH</h3>
+          <p>الموقع الرسمي للاطلاع على الوضعية الإدارية CNIPE</p>
+          <a href="https://idprovider.men.gov.ma/?RedirectUrl=https://notifrh.men.gov.ma" target="_blank"
+            class="site-btn">🔗 زيارة الموقع</a>
+        </div>
+
+        <div class="site-card">
+          <div class="site-ico">🎓</div>
+          <h3>ESISEV2</h3>
+          <p>الموقع الرسمي للمركز الوطني للتجديد التربوي والتجريب CNIPE</p>
+          <a href="https://idprovider.men.gov.ma/?RedirectUrl=https://sise.men.gov.ma/ESISEV2" target="_blank"
+            class="site-btn">🔗 زيارة الموقع</a>
+        </div>
+
+        <div class="site-card">
+          <div class="site-ico">🎓</div>
+          <h3>GRESA</h3>
+          <p>الموقع الرسمي للمركز الوطني للتجديد التربوي والتجريب CNIPE</p>
+          <a href="https://idprovider.men.gov.ma/?redirectUrl=https%3A%2F%2Fgresa.men.gov.ma" target="_blank"
+            class="site-btn">🔗 زيارة الموقع</a>
+        </div>
+
+        <div class="site-card">
+          <div class="site-ico">📊</div>
+          <h3>MASIRH</h3>
+          <p>الموقع الرسمي للأكاديمية الجهوية للتربية والتكوين لجهة فاس مكناس</p>
+          <a href="https://idprovider.men.gov.ma/?RedirectUrl=https%3A%2F%2Fmasirhnew.men.gov.ma%2F" target="_blank"
+            class="site-btn">🔗 زيارة الموقع</a>
+        </div>
+
+        <div class="site-card">
+          <div class="site-ico">📰</div>
+          <h3>الجريدة الرسمية للمملكة المغربية</h3>
+          <p>الموقع الرسمي للجريدة الرسمية — النصوص التشريعية والتنظيمية</p>
+          <a href="https://www.huquqai.ma/sgg" target="_blank" class="site-btn">🔗 زيارة الموقع</a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <!-- ══ PDF MODAL ══ -->
+  <!--<div id="pmod">
+    <div class="pmi">
+      <div class="pmh">
+        <h3 id="pm-title">عرض الملف</h3>
+        <button class="pmc" onclick="closePdf()">✕</button>
+      </div>
+      <div class="pmt">
+        <span class="pmpath" id="pm-path">—</span>
+        <button class="pmb" onclick="openTab(_curPath)">🔗 فتح في تبويب جديد</button>
+      </div>
+      <div class="pmv">
+        <div class="pmph" id="pm-ph">
+          <span class="phi">📄</span>
+          <h4>جاري تحميل الملف...</h4>
+          <p class="phtip">إذا لم يظهر الملف، اضغط <strong>"فتح في تبويب جديد"</strong><br>
+            تأكد من وجود الملف في المسار الصحيح:</p>
+          <div class="phpath" id="pm-phpath"></div>
+        </div>
+        <iframe id="pif"></iframe>
+      </div>
+    </div>
+  </div>-->
+
+  <div id="toast"></div>
+
+  <script src="script.js"></script>
+
+</body>
