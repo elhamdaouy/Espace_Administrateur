@@ -1,4 +1,3 @@
-
 // ══════════════════════════════════
 // GLOBAL SEARCH
 // ══════════════════════════════════
@@ -36,10 +35,15 @@ const SEARCH_INDEX = [
   { type: 'page', name: 'موقع', ico: '🌐', action: () => spDirect('sites') },
 ];
 
+function escapeHtml(str) {
+  return str.replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+}
+
 function highlight(text, q) {
-  if (!q) return text;
-  const re = new RegExp('(' + q.replace(/[.*+?^${ }()|[\]\\]/g, '\\$&') + ')', 'gi');
-  return text.replace(re, '<mark>$1</mark>');
+  const safe = escapeHtml(text);
+  if (!q) return safe;
+  const re = new RegExp('(' + escapeHtml(q).replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi');
+  return safe.replace(re, '<mark>$1</mark>');
 }
 
 function globalSearch(q) {
@@ -47,13 +51,14 @@ function globalSearch(q) {
   const clear = document.getElementById('gsb-clear');
   clear.style.display = q ? 'flex' : 'none';
   if (!q.trim()) { box.classList.remove('show'); return; }
+  const needle = q.toLowerCase();
   const matches = SEARCH_INDEX.filter(item =>
-    item.name.toLowerCase().includes(q.toLowerCase()) ||
-    (item.path && item.path.toLowerCase().includes(q.toLowerCase()))
+    item.name.toLowerCase().includes(needle) ||
+    (item.path && item.path.toLowerCase().includes(needle))
   ).slice(0, 12);
 
   if (!matches.length) {
-    box.innerHTML = `<div class="sr-empty">🔍 لا توجد نتائج لـ "${q}"</div>`;
+    box.innerHTML = `<div class="sr-empty">🔍 لا توجد نتائج لـ "${escapeHtml(q)}"</div>`;
     box.classList.add('show'); return;
   }
 
@@ -65,12 +70,12 @@ function globalSearch(q) {
   Object.entries(groups).forEach(([type, items]) => {
     if (!items.length) return;
     html += `<div class="sr-group-title">${groupNames[type]}</div>`;
-    items.forEach((item, idx) => {
+    items.forEach(item => {
       html += `<div class="sr-item" onclick="runSearch(${SEARCH_INDEX.indexOf(item)})">
             <span class="sr-ico">${item.ico}</span>
             <div class="sr-info">
               <div class="sr-name">${highlight(item.name, q)}</div>
-              ${item.path ? `<div class="sr-path">${item.path}</div>` : ''}
+              ${item.path ? `<div class="sr-path">${escapeHtml(item.path)}</div>` : ''}
             </div>
             <span class="sr-type ${type}">${type === 'page' ? 'قسم' : type === 'pdf' ? 'PDF' : 'صورة'}</span>
           </div>`;
@@ -120,113 +125,33 @@ function setActivePage(id) {
   });
 }
 
-function filterPrints(q) {
-  const rows = document.querySelectorAll('#prints-tbody tr');
-  rows.forEach(row => {
-    const text = row.textContent.toLowerCase();
-    row.style.display = text.includes(q.toLowerCase()) ? '' : 'none';
-  });
-}
-
-function filterDahirs(q) {
-  const tbody = document.getElementById('lg-d-tbody') || document.getElementById('lg-d');
-  if (!tbody) return; // 
-
-  const rows = tbody.querySelectorAll('tr');
+function filterRows(q, ...ids) {
+  const container = ids.map(id => document.getElementById(id)).find(Boolean);
+  if (!container) return;
   const searchTxt = q.trim().toLowerCase();
-
-  rows.forEach(row => {
-    const rowTxt = row.textContent.trim().toLowerCase();
-    row.style.display = rowTxt.includes(searchTxt) ? '' : 'none';
+  container.querySelectorAll('tr').forEach(row => {
+    row.style.display = row.textContent.toLowerCase().includes(searchTxt) ? '' : 'none';
   });
 }
 
-function filterGuides(q) {
-  const tbody = document.getElementById('guides-tbody') || document.getElementById('guides-pg') || document.getElementById('guides');
-  if (!tbody) return;
-
-  const rows = tbody.querySelectorAll('tr');
-  const searchTxt = q.trim().toLowerCase();
-
-  rows.forEach(row => {
-    const rowTxt = row.textContent.trim().toLowerCase();
-    row.style.display = rowTxt.includes(searchTxt) ? '' : 'none';
-  });
-}
-
-function filterLois(q) {
-  const tbody = document.getElementById('lg-l-tbody') || document.getElementById('lg-l') || document.getElementById('guides');
-  if (!tbody) return;
-
-  const rows = tbody.querySelectorAll('tr');
-  const searchTxt = q.trim().toLowerCase();
-
-  rows.forEach(row => {
-    const rowTxt = row.textContent.trim().toLowerCase();
-    row.style.display = rowTxt.includes(searchTxt) ? '' : 'none';
-  });
-}
-
-function filterDecrets(q) {
-  const tbody = document.getElementById('lg-dr-tbody') || document.getElementById('lg-dr') || document.getElementById('guides');
-  if (!tbody) return;
-
-  const rows = tbody.querySelectorAll('tr');
-  const searchTxt = q.trim().toLowerCase();
-
-  rows.forEach(row => {
-    const rowTxt = row.textContent.trim().toLowerCase();
-    row.style.display = rowTxt.includes(searchTxt) ? '' : 'none';
-  });
-}
-
-function filterCirculaires(q) {
-  const tbody = document.getElementById('lg-c-tbody') || document.getElementById('lg-c') || document.getElementById('guides');
-  if (!tbody) return;
-
-  const rows = tbody.querySelectorAll('tr');
-  const searchTxt = q.trim().toLowerCase();
-
-  rows.forEach(row => {
-    const rowTxt = row.textContent.trim().toLowerCase();
-    row.style.display = rowTxt.includes(searchTxt) ? '' : 'none';
-  });
-}
-
-function filterDecisions(q) {
-  const tbody = document.getElementById('lg-mk-tbody') || document.getElementById('lg-mk') || document.getElementById('guides');
-  if (!tbody) return;
-
-  const rows = tbody.querySelectorAll('tr');
-  const searchTxt = q.trim().toLowerCase();
-
-  rows.forEach(row => {
-    const rowTxt = row.textContent.trim().toLowerCase();
-    row.style.display = rowTxt.includes(searchTxt) ? '' : 'none';
-  });
-}
-
-function filterNotes(q) {
-  const tbody = document.getElementById('lg-n-tbody') || document.getElementById('lg-n') || document.getElementById('guides');
-  if (!tbody) return;
-
-  const rows = tbody.querySelectorAll('tr');
-  const searchTxt = q.trim().toLowerCase();
-
-  rows.forEach(row => {
-    const rowTxt = row.textContent.trim().toLowerCase();
-    row.style.display = rowTxt.includes(searchTxt) ? '' : 'none';
-  });
-}
+const filterPrints = q => filterRows(q, 'prints-tbody');
+const filterDahirs = q => filterRows(q, 'lg-d-tbody', 'lg-d');
+const filterGuides = q => filterRows(q, 'guides-tbody', 'guides-pg');
+const filterLois = q => filterRows(q, 'lg-l-tbody', 'lg-l');
+const filterDecrets = q => filterRows(q, 'lg-dr-tbody', 'lg-dr');
+const filterCirculaires = q => filterRows(q, 'lg-c-tbody', 'lg-c');
+const filterDecisions = q => filterRows(q, 'lg-mk-tbody', 'lg-mk');
+const filterNotes = q => filterRows(q, 'lg-n-tbody', 'lg-n');
+const filterExam = q => filterRows(q, 'examens-tbody', 'examens');
 
 function spDirect(id) {
   closeAllDropdowns();
   setActivePage(id);
   window.scrollTo({ top: 0, behavior: 'smooth' });
-  if (id === 'elhamodulesaouy' || id === 'home') setTimeout(animateSkills, 400);
+  if (id === 'home') setTimeout(animateSkills, 400);
 }
 
-function spAndOpen(pageId, svId, evalStr) {
+function spAndOpen(pageId, svId) {
   closeAllDropdowns();
   setActivePage(pageId);
   window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -242,7 +167,6 @@ function spAndOpen(pageId, svId, evalStr) {
       if (sv) sv.classList.add('open');
     }
   }
-  if (evalStr) setTimeout(() => { try { eval(evalStr); } catch (e) { } }, 100);
 }
 
 // Legacy compat
@@ -263,7 +187,7 @@ function hsv(svId, mainId) {
 }
 
 // ── DROPDOWN MANAGEMENT ──
-function toggleDropdown(el, pageId) {
+function toggleDropdown(el) {
   const isOpen = el.classList.contains('dd-open');
   closeAllDropdowns();
   if (!isOpen) el.classList.add('dd-open');
@@ -305,12 +229,6 @@ function spMobSv(pageId, svId) {
   closeMobileMenu();
 }
 
-function spMobAndEval(pageId, evalStr) {
-  spDirect(pageId);
-  closeMobileMenu();
-  setTimeout(() => { try { eval(evalStr); } catch (e) { } }, 150);
-}
-
 function toggleMobSection(header) {
   const items = header.nextElementSibling;
   const isOpen = items.classList.contains('open');
@@ -323,15 +241,14 @@ function toggleMobSection(header) {
 // ══════════════════════════════════
 function animateCounters() {
   document.querySelectorAll('.sn[data-target]').forEach(el => {
-    const target = parseInt(el.dataset.target);
+    const target = parseInt(el.dataset.target, 10);
     const duration = target > 100 ? 1800 : 900;
     const start = performance.now();
-    const startVal = 0;
     function update(now) {
       const elapsed = now - start;
       const progress = Math.min(elapsed / duration, 1);
       const ease = 1 - Math.pow(1 - progress, 3);
-      el.textContent = Math.round(startVal + (target - startVal) * ease);
+      el.textContent = Math.round(target * ease);
       if (progress < 1) requestAnimationFrame(update);
     }
     requestAnimationFrame(update);
@@ -389,21 +306,20 @@ function closeVid() {
   p.pause(); p.src = '';
 }
 
-document.getElementById('vmod').addEventListener('click', e => { if (e.target === e.currentTarget) closeVid(); });
+document.getElementById('vmod')?.addEventListener('click', e => { if (e.target === e.currentTarget) closeVid(); });
 
 // ══════════════════════════════════
 // BACK TO TOP
 // ══════════════════════════════════
 window.addEventListener('scroll', () => {
-  const btt = document.getElementById('btt');
-  if (window.scrollY > 300) btt.classList.add('visible');
-  else btt.classList.remove('visible');
+  document.getElementById('btt')?.classList.toggle('visible', window.scrollY > 300);
 });
 
 // ══════════════════════════════════
 // FOOTER
 // ══════════════════════════════════
-document.getElementById('footer-year').textContent = new Date().getFullYear();
+const yearEl = document.getElementById('footer-year');
+if (yearEl) yearEl.textContent = new Date().getFullYear();
 
 function sendContact() {
   const name = document.getElementById('fc-name').value.trim();
@@ -475,33 +391,6 @@ function filterDd(input, type) {
     }
   });
 }
-// ── فلترة جدول الامتحانات ──
-/*function filterexamens(q) {
-  const rows = document.querySelectorAll('#examens-tbody tr');
-  let visible = 0;
-  rows.forEach(row => {
-    const match = row.textContent.toLowerCase().includes(q.toLowerCase());
-    row.style.display = match ? '' : 'none';
-    if (match) visible++;
-  });
-  const cnt = document.getElementById('exam-count');
-  if (cnt) cnt.textContent = q ? `${visible} نتيجة` : `${rows.length} ملف`;
-}*/
-
-function filterExam(q) {
-  const tbody = document.getElementById('examens-tbody') || document.getElementById('examens') || document.getElementById('guides');
-  if (!tbody) return;
-
-  const rows = tbody.querySelectorAll('tr');
-  const searchTxt = q.trim().toLowerCase();
-
-  rows.forEach(row => {
-    const rowTxt = row.textContent.trim().toLowerCase();
-    row.style.display = rowTxt.includes(searchTxt) ? '' : 'none';
-  });
-}
-
-
 // عداد عند فتح الصفحة
 document.addEventListener('DOMContentLoaded', () => {
   const cnt = document.getElementById('exam-count');
